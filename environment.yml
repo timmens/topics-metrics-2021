@@ -1,0 +1,33 @@
+name: topics-metrics
+
+channels:
+  - defaults
+  - conda-forge
+  - r
+
+dependencies:
+  - python=3.9
+
+  - ipykernel
+  - jupyterlab
+  - nb_conda_kernels
+  - rise
+
+  - pandas
+  - numpy
+  - matplotlib
+  - seaborn
+  - numba
+  - joblib
+
+  - rpy2
+  - r-base
+  - r-essentials
+  - r-devtools
+
+  - black
+  - flake8
+
+# $ R
+# $ Sys.setenv(TAR = "/bin/tar")
+# $ devtools::install_github("user/repo", ref="main", dependencies=FALSE)
