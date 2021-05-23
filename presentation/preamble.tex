@@ -1,0 +1,130 @@
+% \usepackage{fontspec}
+\usepackage{sourcesanspro}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[document]{ragged2e}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+\usepackage[tracking=true]{microtype}
+\usepackage[scaled=0.90]{helvet}
+\usepackage[scaled=0.85]{beramono}
+\usepackage{tgpagella}
+\usepackage{mathpazo}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{soul}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{lstbayes}
+\usepackage{booktabs}
+\usepackage{bold-extra}
+\usepackage{textpos}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage[flushleft]{threeparttable}
+\usepackage{varwidth}
+
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage[noend]{algpseudocode}
+
+\usepackage{graphicx}
+\usepackage{fancybox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[backend=biber, style=apa, autocite=inline, doi=false, url=false]{biblatex}
+\DeclareLanguageMapping{english}{english-apa}
+\setcounter{biburlnumpenalty}{85}  % for urls that are too long
+\addbibresource{bibliography.bib}
+\setbeamertemplate{bibliography item}{}% Remove reference icon.
+\setbeamercolor{bibliography entry author}{fg=bonnblue}
+\setbeamercolor{bibliography entry note}{fg=bonnblue}
+\renewcommand*{\bibfont}{\footnotesize}
+\AtEveryBibitem{%
+  \clearfield{volume}%
+  \clearfield{number}%
+  \clearfield{pages}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{itemize subitem}{fg=black}
+\setbeamercolor{itemize subsubitem}{fg=black}
+\setbeamercolor{section head}{fg=cardinal} % currently unused.
+\setbeamercolor{footline}{fg=bonnblue}
+\setbeamercolor{section in toc}{fg=black}
+
+\setbeamertemplate{itemize item}[circle]
+\setbeamertemplate{itemize subitem}{{\textendash}}
+\setbeamertemplate{itemize subsubitem}[triangle]
+\setbeamertemplate{section in toc}{{\inserttocsectionnumber.}~\inserttocsection}
+
+\setbeamerfont{section in toc}{series=\scshape, size=\Large}
+\setbeamerfont{frametitle}{series=\scshape} % \itshape
+\setbeamercolor{frametitle}{fg=bonnblue}
+
+\setbeamertemplate{frametitle}
+{
+    \vspace*{0.7cm}
+    \insertframetitle
+}
+
+\AtBeginSection[]{
+  \setbeamertemplate{footline}[frame number]{}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{footline}{}
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{title}
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}{\textsc{\insertsectionhead}}}\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+  \addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{author}%
+    \hspace{1em}%
+    \small \insertframenumber/\inserttotalframenumber
+  }
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% empty
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{bonnblue}{RGB}{4, 83, 156}
+\definecolor{bonngrey}{RGB}{148, 147, 132}
+\definecolor{bonnyellow}{RGB}{251, 187, 6}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Auxiliary files
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{title}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Auxiliary commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\graphicspath{graphics/} % graphics path

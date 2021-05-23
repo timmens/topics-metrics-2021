@@ -24,6 +24,7 @@ dependencies:
   - r-base
   - r-essentials
   - r-devtools
+  - r-rjava
 
   - black
   - flake8

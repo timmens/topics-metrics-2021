@@ -1,0 +1,77 @@
+\documentclass[serif, mathsansserif, aspectratio=169]{beamer}
+
+\setbeamertemplate{title page}[default][left]  % left-align title page
+\beamertemplatenavigationsymbolsempty % remove navigation symbols
+
+\input{preamble}
+
+
+\title{Topics in Econometrics and Statistics}
+\subtitle{Summer term, 2021}
+\author{Tim Mensinger}
+\institute{University of Bonn}
+\email{tmensinger@uni-bonn.de}
+\date{}
+
+% math color
+% \makeatletter
+% \def\mathcolor#1#{\@mathcolor{#1}}
+% \def\@mathcolor#1#2#3{%
+%   \protect\leavevmode
+%   \begingroup
+%     \color#1{#2}#3%
+%   \endgroup
+% }
+% \makeatother
+
+% algorithm numbering
+%\makeatletter
+%\renewcommand{\fnum@algorithm}{\fname@algorithm}
+%\makeatother
+
+% caption color
+% \setbeamercolor{caption name}{fg=myred}
+
+% settings frame body
+% \setbeamerfont*{standout}{series=\bfseries, size=\huge}
+
+
+\begin{document}
+
+
+\begin{frame}
+    \maketitle
+\end{frame}
+
+% Page numbers
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{author}%
+    \hspace{1em}%
+    \small \insertframenumber/\inserttotalframenumber
+}
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+
+\include{introduction}
+
+
+\begin{frame}{References}
+    \nocite{*}
+    \printbibliography
+\end{frame}
+
+\setbeamertemplate{footline}[frame number]{}  % contact page has no frame number
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\begin{frame}{Contact}
+    \begin{itemize}
+        \item[] \large \faIcon{github} \,\,\, \texttt{\url{github.com/timmens/topics-metrics-2021}}
+        \item[] \large \faIcon{envelope} \,\, \texttt{\url{tmensinger(at)uni-bonn.de}}
+    \end{itemize}
+\end{frame}
+
+
+\end{document}
