@@ -1,4 +1,4 @@
-\documentclass[serif, mathsansserif, aspectratio=169]{beamer}
+\documentclass[serif, mathsansserif, aspectratio=169]{beamer}   % [handout] to remove pause
 
 \setbeamertemplate{title page}[default][left]  % left-align title page
 \beamertemplatenavigationsymbolsempty % remove navigation symbols
@@ -48,14 +48,20 @@
     \usebeamerfont{footline}%
     \usebeamercolor[fg]{author}%
     \hspace{1em}%
-    \small \insertframenumber/\inserttotalframenumber
+    \raisebox{1em}[0pt][0pt]{%
+    \small \insertframenumber/\inserttotalframenumber \kern 0.25em
+    }
 }
 \begin{frame}
   \tableofcontents
 \end{frame}
 
 
-\include{introduction}
+\include{sections/introduction}
+\include{sections/model}
+\include{sections/identification}
+\include{sections/estimation}
+\include{sections/application}
 
 
 \begin{frame}{References}
@@ -68,8 +74,8 @@
 \setbeamertemplate{footline}{}
 \begin{frame}{Contact}
     \begin{itemize}
-        \item[] \large \faIcon{github} \,\,\, \texttt{\url{github.com/timmens/topics-metrics-2021}}
-        \item[] \large \faIcon{envelope} \,\, \texttt{\url{tmensinger(at)uni-bonn.de}}
+        \item[] \large \faIcon{github} \,\,\, \texttt{github.com/timmens/topics-metrics-2021}
+        \item[] \large \faIcon{envelope} \,\, \texttt{tmensinger(at)uni-bonn.de}
     \end{itemize}
 \end{frame}
 

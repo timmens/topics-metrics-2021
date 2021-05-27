@@ -1,4 +1,3 @@
-% \usepackage{fontspec}
 \usepackage{sourcesanspro}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -77,8 +76,8 @@
 
 \setbeamertemplate{frametitle}
 {
-    \vspace*{0.7cm}
-    \insertframetitle
+    \vspace*{0.4cm}
+    \insertframetitle \\ \footnotesize \textcolor{bonngrey}{\insertframesubtitle}
 }
 
 \AtBeginSection[]{
@@ -94,10 +93,12 @@
   \vfill
   \end{frame}
   \addtobeamertemplate{navigation symbols}{}{%
-    \usebeamerfont{footline}%
-    \usebeamercolor[fg]{author}%
-    \hspace{1em}%
-    \small \insertframenumber/\inserttotalframenumber
+      \usebeamerfont{footline}%
+      \usebeamercolor[fg]{author}%
+      \hspace{1em}%
+      \raisebox{1em}[0pt][0pt]{%
+      \small \insertframenumber/\inserttotalframenumber \kern 0.25em
+      }
   }
 }
 
@@ -116,7 +117,7 @@
 \definecolor{bonnblue}{RGB}{4, 83, 156}
 \definecolor{bonngrey}{RGB}{148, 147, 132}
 \definecolor{bonnyellow}{RGB}{251, 187, 6}
-
+\definecolor{red}{rgb}{0.65, 0.16, 0.16}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Auxiliary files
@@ -127,4 +128,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Auxiliary commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\graphicspath{graphics/} % graphics path
+% \graphicspath{files/} % graphics path
+
+
