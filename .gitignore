@@ -26,3 +26,5 @@ data/
 *.synctex.gz
 *.toc
 *.sty
+
+src/__pycache__/
