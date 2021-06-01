@@ -20,6 +20,10 @@ dependencies:
   - numba
   - joblib
 
+  - pip
+  - pip:
+    - manimgl
+
   - rpy2
   - r-base
   - r-essentials

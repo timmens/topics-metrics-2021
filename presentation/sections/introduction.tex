@@ -66,9 +66,9 @@ node[right] {#5};
 \begin{tikzpicture}
     \draw[line width=0.25mm, ->] (0, -2) -- (0, 3);
     \draw[line width=0.25mm, ->] (-1, 0) -- (11, 0) node [below] {$t$};
-    \brownianmotion{180}{0.05}{0.25}{color=bonnblue, line width=0.2mm}{$X_1(t)$}
-    \brownianmotion{180}{0.05}{0.25}{color=bonnyellow, line width=0.2mm}{$X_2(t)$}
     \brownianmotion{180}{0.05}{0.25}{color=bonngrey, line width=0.2mm}{$X_3(t)$}
+    \brownianmotion{180}{0.05}{0.25}{color=bonnyellow, line width=0.2mm}{$X_2(t)$}
+    \brownianmotion{180}{0.05}{0.25}{color=bonnblue, line width=0.2mm}{$X_1(t)$}
 \end{tikzpicture}
 \end{centering}
 \end{frame}
@@ -81,9 +81,9 @@ node[right] {#5};
 
     \draw[line width=0.25mm, ->] (0, -2) -- (0, 3);
     \draw[line width=0.25mm, ->] (-1, 0) -- (11, 0) node [below] {$t$};
-    \brownianmotion{180}{0.05}{0.25}{color=bonnblue, line width=0.2mm}{$X_1(t)$}
-    \brownianmotion{180}{0.05}{0.25}{color=bonnyellow, line width=0.2mm}{$X_2(t)$}
     \brownianmotion{180}{0.05}{0.25}{color=bonngrey, line width=0.2mm}{$X_3(t)$}
+    \brownianmotion{180}{0.05}{0.25}{color=bonnyellow, line width=0.2mm}{$X_2(t)$}
+    \brownianmotion{180}{0.05}{0.25}{color=bonnblue, line width=0.2mm}{$X_1(t)$}
     
     \pause
 
@@ -92,7 +92,7 @@ node[right] {#5};
 
     \pause
 
-    \node[] at (12, 4) {$Y_i \simeq g\big(X_i(\tau_1), X_i(\tau_2)\big)$};
+    \node[] at (12, 4) {$Y_1 \simeq g\big(X_1(\tau_1), X_1(\tau_2)\big)$};
 
     \pause
 
