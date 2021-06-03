@@ -18,8 +18,9 @@ dependencies:
   - scikit-learn
   - matplotlib
   - seaborn
-  - numba
-  - joblib
+
+  - pytask
+  - pytask-r
 
   - pip
   - pip:

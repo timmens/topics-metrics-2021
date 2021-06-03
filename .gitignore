@@ -3,6 +3,9 @@
 .RData
 .Ruserdata
 
+.pytask.sqlite3
+bld/
+
 fdapoi/
 *.Rproj
 
@@ -10,8 +13,6 @@ fdapoi/
 data/
 
 *.pdf
-
-
 *.aux
 *.bbl
 *.bcf
