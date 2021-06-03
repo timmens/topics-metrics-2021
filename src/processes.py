@@ -29,7 +29,6 @@ def simulate_gaussian_process(n_sim, n_periods, kernel, seed=None, **kernel_kwar
     else:
         kernel_kwargs = _add_defaults_to_kwargs(kernel, kernel_kwargs)
         kernel = getattr(sklearn_kernels, kernel)(**kernel_kwargs)
-
         grid = np.linspace(0, 1, n_periods).reshape(-1, 1)
         cov = kernel(grid)
         process = np.random.multivariate_normal(np.zeros(n_periods), cov, size=n_sim).T

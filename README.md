@@ -1,35 +1,31 @@
 ## Topics in Econometrics and Statistics
 
-*University of Bonn, Summer Term 2021*
-
-Author: Tim Mensinger
+*University of Bonn, Summer Term 2021, Tim Mensinger*
 
 
 > This repository contains material (slides, notes, codes) created for the project in
-> the topics class in econometrics and statistics.
+> the class *topics in econometrics and statistics*.
 
 
-#### Environment
+#### Running the Project
 
-To get everything up and running install
-[miniconda](https://docs.conda.io/en/latest/miniconda.html) and in some terminal
-emulator run
+I use [pytask](https://github.com/pytask-dev/pytask) to build the project. To run the
+project you need to create the correct Python/R environment. A simple way is to run
 
-```zsh 
-
-$ conda env create -f environment.yml $ conda activate topics-metrics
+```zsh
+$ conda env create -f environment.yml
+$ conda activate topics-metrics
 $ pip install -e .
+```
+
+in a terminal and afterwards
+
+```R
+
+install.packages("glmulti")
+devtools::install_github("lidom/fdapoi/fdapoi", dependencies=FALSE)
 
 ```
 
-where ``pip install -e .`` has to be run only once!
-
-Afterwards we still have to install the package
-[fdapoi](https://github.com/lidom/fdapoi).  To do this continue in the above terminal
-session and type ``R`` to open an R terminal.  Then run
-
-```R install.packages("glmulti") devtools::install_github("lidom/fdapoi/fdapoi",
-dependencies=FALSE) ```
-
-Note that in my case (Linux OS) I first had to run ``Sys.setenv(TAR = "/bin/tar")`` in
-the R session.
+in the R console. Then the project can be build by running ``pytask`` in the terminal
+when one is located a subfolder of the project root.
