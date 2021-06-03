@@ -28,3 +28,5 @@ data/
 *.sty
 
 src/__pycache__/
+
+topics_metrics.egg-info/

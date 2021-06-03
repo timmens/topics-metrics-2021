@@ -15,7 +15,14 @@ To get everything up and running install
 [miniconda](https://docs.conda.io/en/latest/miniconda.html) and in some terminal
 emulator run
 
-```zsh $ conda env create -f environment.yml $ conda activate topics-metrics ```
+```zsh 
+
+$ conda env create -f environment.yml $ conda activate topics-metrics
+$ pip install -e .
+
+```
+
+where ``pip install -e .`` has to be run only once!
 
 Afterwards we still have to install the package
 [fdapoi](https://github.com/lidom/fdapoi).  To do this continue in the above terminal

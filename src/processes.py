@@ -1,14 +1,55 @@
-import numpy as np
-import seaborn as sns
-import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+import sklearn.gaussian_process.kernels as sklearn_kernels
 
 
 def plot_process(process):
+    """Plot process."""
     _ = plt.plot(np.linspace(0, 1, len(process)), process)
 
 
+def simulate_gaussian_process(n_sim, n_periods, kernel, seed=None, **kernel_kwargs):
+    """Simulate gaussian process using specified kernel.
+
+    Args:
+        n_sim (int): Number of simulated processes.
+        n_periods (int): Number of time realizations of each process.
+            Realizations points are given by an equidistant grid over [0, 1].
+        kernel (str): Kernel. Available kernels are in ["WhiteKernel", "RBF",
+        "Matern", "BrownianMotion"].
+        seed (int): Seed. Default None, which does not set a seed.
+        **kernel_kwargs: Keyword arguments passed to the specified kernel.
+
+    Returns:
+        process (np.ndarray): Simulated process of shape (n_periods, n_sim).
+
+    """
+    if kernel == "BrownianMotion":
+        process = _simulate_brownian_motion(1 / (n_periods - 1), n_periods, n_sim)
+    else:
+        kernel_kwargs = _add_defaults_to_kwargs(kernel, kernel_kwargs)
+        kernel = getattr(sklearn_kernels, kernel)(**kernel_kwargs)
+
+        grid = np.linspace(0, 1, n_periods).reshape(-1, 1)
+        cov = kernel(grid)
+        process = np.random.multivariate_normal(np.zeros(n_periods), cov, size=n_sim).T
+    return process
+
+
+def _add_defaults_to_kwargs(kernel, kwargs):
+    if kernel == "Matern":
+        if "nu" not in kwargs:
+            kwargs["nu"] = 0.5
+        if "length_scale" not in kwargs:
+            kwargs["length_scale"] = 0.1
+    elif kernel == "RBF":
+        if "length_scale" not in kwargs:
+            kwargs["length_scale"] = 0.1
+    return kwargs
+
+
 def simulate_process(n_sim, n_periods, method, a=0, b=1, seed=None, **kwargs):
+    """Simulate process."""
     if seed is not None:
         np.random.seed(seed)
 
@@ -19,8 +60,6 @@ def simulate_process(n_sim, n_periods, method, a=0, b=1, seed=None, **kwargs):
         process = _simulate_ornstein_uhlenbeck(dt, n_periods, n_sim, **kwargs)
     elif method == "polynomial":
         process = _simulate_polynomial(a, b, n_periods, n_sim, **kwargs)
-    elif method == "gaussian_process":
-        process = _simulate_gaussian_process(n_periods, n_sim, **kwargs)
     elif method == "white-noise":
         process = _simulate_white_noise(n_periods, n_sim, **kwargs)
     elif method == "constant-normal":
