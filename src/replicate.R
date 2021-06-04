@@ -1,18 +1,25 @@
 #!/usr/bin/env Rscript
 
-library("fdapoi")
+reticulate::use_condaenv("topics-metrics", required=TRUE)
+
+## imports
 library("glmulti")
-
-source("fdapoi.R")
-
 
 args = commandArgs(trailingOnly=TRUE)
 
-data = read.csv(args[1])
+SRC = args[1]
+setwd(SRC)
+
+source(file.path(SRC, "shared.R"))  # exports fit_model, extract_coefficients
+
+## main
+
+
+data = read.csv(args[2])
 
 y = data[[1]]
 X = t(as.matrix(data[-1]))
 
 model = fit_model(y, X, family="binomial")
 
-write_model(model, args[2])
+extract_coefficients(model, path=args[3])  # writes to file

@@ -8,7 +8,7 @@ def plot_process(process):
     _ = plt.plot(np.linspace(0, 1, len(process)), process)
 
 
-def simulate_gaussian_process(n_sim, n_periods, kernel, seed=None, **kernel_kwargs):
+def simulate_gaussian_process(n_sim, n_periods, kernel, seed=None, kernel_kwargs=None):
     """Simulate gaussian process using specified kernel.
 
     Args:
@@ -36,6 +36,7 @@ def simulate_gaussian_process(n_sim, n_periods, kernel, seed=None, **kernel_kwar
 
 
 def _add_defaults_to_kwargs(kernel, kwargs):
+    kwargs = {} if kwargs is None else kwargs
     if kernel == "Matern":
         if "nu" not in kwargs:
             kwargs["nu"] = 0.5
@@ -45,33 +46,6 @@ def _add_defaults_to_kwargs(kernel, kwargs):
         if "length_scale" not in kwargs:
             kwargs["length_scale"] = 0.1
     return kwargs
-
-
-def simulate_process(n_sim, n_periods, method, a=0, b=1, seed=None, **kwargs):
-    """Simulate process."""
-    if seed is not None:
-        np.random.seed(seed)
-
-    dt = (b - a) / (n_periods - 1)
-    if method == "brownian_motion":
-        process = _simulate_brownian_motion(dt, n_periods, n_sim)
-    elif method == "ornstein_uhlenbeck":
-        process = _simulate_ornstein_uhlenbeck(dt, n_periods, n_sim, **kwargs)
-    elif method == "polynomial":
-        process = _simulate_polynomial(a, b, n_periods, n_sim, **kwargs)
-    elif method == "white-noise":
-        process = _simulate_white_noise(n_periods, n_sim, **kwargs)
-    elif method == "constant-normal":
-        process = _simulate_constant_normal(n_periods, n_sim, **kwargs)
-    elif method == "poisson":
-        process = _simulate_poisson(dt, n_periods, n_sim, **kwargs)
-    elif method == "levy":
-        process = _simulate_levy(dt, n_periods, n_sim, **kwargs)
-    else:
-        raise ValueError(
-            f"Method {method} not implemted. See source code for implemented processes"
-        )
-    return process
 
 
 def _simulate_polynomial(a, b, n_periods, n_sim, order=5, mu=0, sigma=1):

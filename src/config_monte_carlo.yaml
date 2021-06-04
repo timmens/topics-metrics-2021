@@ -1,0 +1,24 @@
+n_sim: 2
+
+n_samples:
+    - 20
+      # - 60
+      # - 100
+
+n_periods: 
+    - 100
+
+n_points:
+      # - 0
+    - 1
+      # - 2
+    
+beta:
+      # - [1]
+    - [1, 2]
+      # - [1, 2, -1]
+    
+kernel:
+    - Matern
+    - RBF
+      # - BrownianMotion

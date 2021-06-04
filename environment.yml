@@ -23,14 +23,13 @@ dependencies:
   - pytask-r
 
   - pip
-  - pip:
-    - manimgl
 
   - rpy2
   - r-base
   - r-essentials
   - r-devtools
   - r-rjava
+  - r-reticulate
 
   - black
   - flake8
