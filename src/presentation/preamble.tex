@@ -37,6 +37,10 @@
 \usepackage{graphicx}
 \usepackage{fancybox}
 
+
+\usepackage[skins,theorems]{tcolorbox}
+\tcbset{highlight math style={enhanced,colframe=red,colback=white,arc=0pt,boxrule=1pt}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Bibliography settings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -114,10 +118,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Colors
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\definecolor{bonnblue}{RGB}{4, 83, 156}
-\definecolor{bonngrey}{RGB}{148, 147, 132}
-\definecolor{bonnyellow}{RGB}{251, 187, 6}
-\definecolor{red}{rgb}{0.65, 0.16, 0.16}
+\definecolor{bonnblue}{RGB}{4, 83, 156}  % hex: #04539C
+\definecolor{bonngrey}{RGB}{148, 147, 132}  % hex: #8A9384
+\definecolor{bonnyellow}{RGB}{251, 187, 6}  % hex: #FBBB06
+\definecolor{red}{rgb}{65, 16, 16}  % hex: #411010
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Auxiliary files
@@ -129,5 +133,4 @@
 % Auxiliary commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \graphicspath{files/} % graphics path
-
-
+\newcommand{\labelitem}{\tikz\draw[black,fill=bonnblue] (0,0) circle (.35ex);}

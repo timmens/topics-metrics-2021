@@ -21,6 +21,7 @@ dependencies:
 
   - pytask
   - pytask-r
+  - pytask-latex
 
   - pip
 

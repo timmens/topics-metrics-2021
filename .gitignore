@@ -5,6 +5,7 @@
 
 .pytask.sqlite3
 bld/
+pdfs/
 
 fdapoi/
 *.Rproj

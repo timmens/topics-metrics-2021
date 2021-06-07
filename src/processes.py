@@ -27,12 +27,43 @@ def simulate_gaussian_process(n_sim, n_periods, kernel, seed=None, kernel_kwargs
     if kernel == "BrownianMotion":
         process = _simulate_brownian_motion(1 / (n_periods - 1), n_periods, n_sim)
     else:
-        kernel_kwargs = _add_defaults_to_kwargs(kernel, kernel_kwargs)
-        kernel = getattr(sklearn_kernels, kernel)(**kernel_kwargs)
-        grid = np.linspace(0, 1, n_periods).reshape(-1, 1)
-        cov = kernel(grid)
+        grid = np.linspace(0, 1, n_periods)
+        cov = get_kernel(kernel, kernel_kwargs)(grid)
         process = np.random.multivariate_normal(np.zeros(n_periods), cov, size=n_sim).T
     return process
+
+
+def get_kernel(kernel, kernel_kwargs=None):
+    """Return kernel function.
+
+    Args:
+        kernel (str): Kernel. Available kernels are in ["WhiteKernel", "RBF",
+        "Matern", "BrownianMotion"].
+        **kernel_kwargs: Keyword arguments passed to the specified kernel.
+
+    Returns:
+        kernel (callable): Kernel function of two arguments.
+
+    """
+    kernel_kwargs = _add_defaults_to_kwargs(kernel, kernel_kwargs)
+    if kernel == "BrownianMotion":
+
+        def _kernel(x, y):
+            return kernel_kwargs["sigma"] ** 2 * np.minimum(x, y)
+
+    else:
+        kernel = getattr(sklearn_kernels, kernel)(**kernel_kwargs)
+
+        def _kernel(X, Y=None):  # noqa: N803
+            if Y is None:
+                return kernel(X.reshape(-1, 1))
+            else:
+                Y = np.atleast_2d(Y)
+                if len(Y) > 1:
+                    raise ValueError("Second argument has to be a scalar.")
+                return kernel(X.reshape(-1, 1), Y).flatten()
+
+    return _kernel
 
 
 def _add_defaults_to_kwargs(kernel, kwargs):
@@ -45,6 +76,9 @@ def _add_defaults_to_kwargs(kernel, kwargs):
     elif kernel == "RBF":
         if "length_scale" not in kwargs:
             kwargs["length_scale"] = 0.1
+    elif kernel == "BrownianMotion":
+        if "sigma" not in kwargs:
+            kwargs["sigma"] = np.sqrt(2)
     return kwargs
 
 
