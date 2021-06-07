@@ -6,33 +6,48 @@
 > This repository contains material (slides, notes, codes) created for the project in
 > the class *topics in econometrics and statistics*.
 
-#### Presentation
 
-##### Gaussian Process Visualization
+#### Building the Project
 
-The visualization code is hosted here: [gp-visualization](https://github.com/timmens/gp-visualization).
-
-
-#### Running the Project
-
-I use [pytask](https://github.com/pytask-dev/pytask) to build the project. To run the
-project you need to create the correct Python/R environment. A simple way is to use the
-Python package manager [conda](https://docs.conda.io/en/latest/miniconda.html). Run
+Here I use the wonderful [pytask](https://github.com/pytask-dev/pytask) build system.
+Before building you must create an appropriate Python / R environment. All relevant
+packages are listed in ``environment.yml``. I reccomend using
+[conda](https://docs.conda.io/en/latest/miniconda.html) to create the environment. In a
+terminal shell run
 
 ```zsh
+# cd into root of project
 $ conda env create -f environment.yml
 $ conda activate topics-metrics
 $ pip install -e .
 ```
 
-in a terminal and afterwards
+This installs all Python packages and core R functionality. To install the missing R
+packages open an R terminal by typing ``R`` in the terminal and run
 
 ```R
-
 install.packages("glmulti")
 devtools::install_github("lidom/fdapoi/fdapoi", dependencies=FALSE)
-
 ```
 
-in the R console. The project can be build by typing ``pytask`` in the terminal when
-one is located on the project root or any of the project subfolders.
+> *Note that there may be some issues when installing the R dependencies, but they can
+> be
+operating system specific and are usally easy to solve.*
+
+*Finally*, to actually **run the project** do
+
+```zsh
+# cd into root of project
+$ pytask
+```
+
+The results can be found in the newly generated folder ``bld``.
+
+---- 
+
+#### Presentation
+
+##### Gaussian Process Visualization
+
+The visualization code is hosted here:
+[gp-visualization](https://github.com/timmens/gp-visualization).
