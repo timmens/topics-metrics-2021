@@ -1,0 +1,147 @@
+\section{Heuristics}
+
+
+\begin{frame}{Plan}
+
+    \vspace{-0.5cm}
+    \begin{table}[]
+    \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{ll}
+          \labelitem Simple linear model & $Y_i = \beta_0 + \sum_{s = 1}^S \beta_s X_i(\tau_s) + \epsilon_i$\\
+          \labelitem Gaussian Process Regressors &  $X_i \sim \mathcal{GP}(0, \sigma)$\\
+        \end{tabular}
+    \end{table}
+
+    \vspace{0.5cm}
+    \begin{table}[]
+    \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{ll}
+            \blue{Task:} & Think of how to identify/estimate $\tau_s$ for different $\sigma$\\
+            \grey{First insight:} & Investigate object $\expectation{Y_i X_i(t)}$\\
+            \yellow{Kernels:} & White, Brownian Motion, Matern, RBF
+        \end{tabular}
+    \end{table}
+
+\end{frame}
+
+
+\begin{frame}{General Representation}{Equation 1}
+
+    \vspace{-0.5cm}
+    \begin{align*}
+    \label{eq:1}
+        f(t) & \stackrel{def}{=} \expectation{Y_i X_i(t)}\\
+             &= \expectation{\left(\beta_0 + \sum_{s = 1}^S \beta_s X_i(\tau_s) + \epsilon_i\right) X_i(t)}\\
+             &= \sum_{s = 1}^S \beta_s \, \expectation{X_i(\tau_s) X_i(t)}\\
+             &= \sum_{s = 1}^S \beta_s \, \sigma(t, \tau_s)
+    \end{align*}
+
+\end{frame}
+
+
+\begin{frame}{White Kernel}
+
+\vspace{-1.2cm}
+\begin{centering}
+\begin{tikzpicture}
+
+    \draw node at (8.35, 4) {$\sigma(s, t) = \indicator{s = t}$};
+    \draw node at (9, 3) {$f(t) \stackrel{eq.1}{=} \sum_{s = 1}^S \beta_s \, \sigma(t, \tau_s)$};
+    \draw node at (9.65, 2.2) {$= \sum_{s = 1}^S \beta_s \, \indicator{t = \tau_s}$};
+
+    \draw[line width=0.25mm, ->] (0, -2.5) -- (0, 3.5) node [left] {$f(t)$};
+    \draw[line width=0.25mm, ->] (-0.5, 0) -- (11, 0) node [below] {$t$};
+
+    \draw (10, -0.2) -- (10, 0.2) node [below=0.4cm] {$1$};
+    \draw node at (-0.2, -0.2) {$0$};
+
+    \draw[line width=0.25mm] (2.5, -0.2) -- (2.5, 0) node [below=0.2cm] {$\tau_1$};
+    \draw[line width=0.25mm] (5, -0.2) -- (5, 0) node [below=0.2cm] {$\tau_2$};
+    \draw[line width=0.25mm] (7.5, 0) -- (7.5, 0.2) node [above] {$\tau_3$};
+
+    \draw[line width=0.25mm, color=bonnblue] (0.02, 0.03) -- (9.98, 0.03) {};
+
+    \draw[line width=0.25mm, color=bonnblue] (2.5, 0.03) -- (2.5, 1) node [left] {$\beta_1$};
+    \draw[line width=0.25mm, color=bonnblue] (5, 0) -- (5, 3) node [left] {$\beta_2$};
+    \draw[line width=0.25mm, color=bonnblue] (7.5, -0.03) -- (7.5, -2) node [left] {$\beta_3$};
+
+    \draw[line width=0.2mm, color=bonngrey, dashed] (1.9, 1) -- (0, 1) node [left] {$1$};
+    \draw[line width=0.2mm, color=bonngrey, dashed] (4.4, 3) -- (0, 3) node [left] {$3$};
+    \draw[line width=0.2mm, color=bonngrey, dashed] (6.9, -2) -- (0, -2) node [left] {$-2$};
+
+\end{tikzpicture}
+\end{centering}
+    
+\end{frame}
+
+
+\begin{frame}{Brownian Motion}
+
+\vspace{-1.2cm}
+\begin{centering}
+\begin{tikzpicture}
+
+    \draw node at (8.35, 4) {$\sigma(s, t) = 2 \min\{s, t\}$};
+    \draw node at (9, 3) {$f(t) \stackrel{eq.1}{=} \sum_{s = 1}^S \beta_s \, \sigma(t, \tau_s)$};
+    \draw node at (9.65, 2.2) {$= \sum_{s = 1}^S \beta_s \, \min\{t, \tau_s\}$};
+
+    \draw[line width=0.25mm, ->] (0, -2.5) -- (0, 3.5) node [left] {$f(t)$};
+    \draw[line width=0.25mm, ->] (-0.5, 0) -- (11, 0) node [below] {$t$};
+
+    \draw (10, -0.2) -- (10, 0.2) node [below=0.4cm] {$1$};
+    \draw node at (-0.2, -0.2) {$0$};
+
+    \draw[line width=0.25mm] (2.5, -0.2) -- (2.5, 0) node [below=0.2cm] {$\tau_1$};
+    \draw[line width=0.25mm] (5, -0.2) -- (5, 0) node [below=0.2cm] {$\tau_2$};
+    \draw[line width=0.25mm] (7.5, -0.2) -- (7.5, 0) node [below=0.2cm] {$\tau_3$};
+
+    \draw[line width=0.25mm, dashed, color=bonngrey] (2.5, 0) -- (2.5, 1);
+    \draw[line width=0.25mm, dashed, color=bonngrey] (5, 0) -- (5, 1.5);
+    \draw[line width=0.25mm, dashed, color=bonngrey] (7.5,0) -- (7.5, 0.5);
+
+    \draw[line width=0.25mm, color=bonnblue] (0.02, 0.03) -- (2.5, 1);
+    \draw[line width=0.25mm, color=bonnblue] (2.5, 1) -- (5, 1.5);
+    \draw[line width=0.25mm, color=bonnblue] (5, 1.5) -- (7.5, 0.5);
+    \draw[line width=0.25mm, color=bonnblue] (7.5, 0.5) -- (10, 0.5);
+
+\end{tikzpicture}
+\end{centering}
+    
+\end{frame}
+
+
+\begin{frame}
+
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{../../bld/figures/cross-covariance.png}
+    \end{center}
+
+
+\end{frame}
+
+
+\begin{frame}{Finite Difference and Differentiability}
+    \vspace{-1cm}
+    Let $h: [0, 1] \to \mathbb{R}$.
+
+    \vspace{0.25cm}
+    \begin{paragraph} \blue{Definition.}\\
+        \quad $h$ is differentiable at $t \in (0, 1)$ if
+        $\lim_{\delta \to 0} (h(t + \delta) - h(t - \delta)) / \delta$ exists.
+    \end{paragraph}
+
+    \vspace{0.5cm}
+    \begin{paragraph} \blue{Definition.}\\
+        \quad $c(t, \delta) = h(t + \delta) - h(t - \delta)$ is the (first-order)
+        centered difference of $h$.\\
+        \quad For small $\delta$, $h'(t)$ is approximated by $c(t, \delta) / \delta$.
+    \end{paragraph}
+
+    \vspace{0.5cm}
+    \begin{paragraph} \grey{Remark.}\\
+        \quad Applying the first-order centered difference twice yields the second-order\\
+        \quad difference $c^2(t, \delta) = h(t + \delta) + h(t + \delta) - 2h(t)$. For small
+        $\delta$, $h''(t)$ is\\ \quad approximated by $c^2(t, \delta) / \delta$.
+    \end{paragraph}
+
+\end{frame}

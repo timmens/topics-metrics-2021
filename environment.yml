@@ -16,8 +16,11 @@ dependencies:
   - pandas
   - numpy
   - scikit-learn
+
   - matplotlib
   - seaborn
+  - holoviews
+  - bokeh
 
   - pytask
   - pytask-r

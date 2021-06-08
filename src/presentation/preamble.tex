@@ -13,6 +13,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{scalerel}
 \usepackage{bm}
 \usepackage{bbm}
 \usepackage{xcolor}
@@ -111,8 +112,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Math definitions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% empty
+\newcommand\indicator[1]{\scaleobj{1.4}{\mathbbm{1}} \! \left\{#1\right\}}
+\newcommand\expectation[1]{\mathbb{E}\left[#1\right]}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -133,4 +134,9 @@
 % Auxiliary commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \graphicspath{files/} % graphics path
-\newcommand{\labelitem}{\tikz\draw[black,fill=bonnblue] (0,0) circle (.35ex);}
+\newcommand{\labelitem}{\tikz\draw[black,fill=bonnblue] (0,0) circle (.35ex); \,\,}
+
+\newcommand{\blue}[1]{\textcolor{bonnblue}{#1}}
+\newcommand{\yellow}[1]{\textcolor{bonnyellow}{#1}}
+\newcommand{\grey}[1]{\textcolor{bonngrey}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}

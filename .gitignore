@@ -27,6 +27,7 @@ fdapoi/
 *.synctex.gz
 *.toc
 *.sty
+*.synctex(busy)
 
 src/__pycache__/
 
