@@ -193,7 +193,7 @@ def create_second_centered_difference_plot(
 
 def _second_central_difference(grid, kernel, locations, beta, delta):
     func = _get_cross_covariance(get_kernel(kernel), locations, beta)
-    return func(grid + delta) + func(grid - delta) - 2 * func(grid)
+    return func(grid) - (func(grid + delta) + func(grid - delta)) / 2
 
 
 def _get_cross_covariance(kernel, locations, betas):
