@@ -8,6 +8,7 @@ def simulate_model(
     n_periods=100,
     n_points=1,
     beta=(0, 1),
+    locations=None,
     std=None,
     kernel="WhiteKernel",
     seed=None,
@@ -23,6 +24,8 @@ def simulate_model(
         n_periods (int): Number of periods for each sample.
         n_points (int): Number of points-of-impact.
         beta (list-like): Beta coefficients for linear model. len(beta) = n_points + 1.
+        locations (list-like): POI locations. Must correspond to beta. Default None, in
+            which case locations are created using _compute_poi_locations.
         std (float): Standard dev. of error. Must be positive. Default np.sqrt(0.5)
         kernel (str): Kernel to be used in simulation of gaussian process.
         seed (int): Random number seed. Default None.
@@ -42,7 +45,10 @@ def simulate_model(
         std = np.sqrt(0.5)
 
     X = simulate_gaussian_process(n_samples, n_periods, kernel, seed, kernel_kwargs)
-    poi_location = _compute_poi_location(n_points, n_periods)
+    if locations is None:
+        poi_location = _compute_poi_location(n_points, n_periods)
+    else:
+        poi_location = np.array([int(loc * len(X)) for loc in locations], dtype=int)
 
     X_poi = X[poi_location, :].T
     y = beta[0] + X_poi @ beta[1:] + np.random.normal(0, std, n_samples)

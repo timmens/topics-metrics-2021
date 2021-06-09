@@ -1,6 +1,8 @@
 from functools import partial
 
-from bokeh.io import curdoc
+import numpy as np
+import pandas as pd
+from bokeh.io import curdoc  # noqa: F401
 from bokeh.layouts import column
 from bokeh.layouts import row
 from bokeh.models import CheckboxButtonGroup
@@ -12,6 +14,7 @@ from bokeh.plotting import figure
 
 from src.plotting import _create_plot_data
 from src.plotting import _second_central_difference
+from src.simulate import simulate_model
 
 
 palette = {
@@ -42,12 +45,46 @@ def _transform_output_to_dict(delta, func):
 
 n_grid_points = 200
 start = 0.001
-end = 0.7
+end = 0.4
 initial_value = 0.01
 kernels = ["BrownianMotion", "RBF", "Matern"]
 locations = [1 / 4, 2 / 4, 3 / 4]
 betas = [1, 3, -2]
 
+data = {
+    kernel: simulate_model(
+        n_samples=500,
+        n_periods=int(end / start),
+        n_points=len(locations),
+        beta=[0] + betas,
+        locations=locations,
+        kernel=kernel,
+        seed=1,
+    )
+    for kernel in kernels
+}
+
+
+def _estimate_second_central_difference(delta, data, start, end):
+    n_neighbors = int(delta / start)
+
+    grid = np.linspace(0, 1, int(end / start))
+    df = pd.DataFrame({"x": grid})
+    for kernel, (y, X, _) in data.items():
+        result = np.tile(np.nan, len(X))
+        for i in range(n_neighbors, len(X) - n_neighbors):
+            Z = X[i, :] - (X[i + n_neighbors, :] + X[i - n_neighbors, :]) / 2
+            result[i] = (Z * y).mean()
+        if np.isnan(result).all():
+            df[kernel] = np.nan
+        else:
+            df[kernel] = result / np.nanmax(np.abs(result))
+    return df
+
+
+estimate_second_central_difference = partial(
+    _estimate_second_central_difference, **{"data": data, "start": start, "end": end}
+)
 
 create_data = partial(
     _create_data_bokeh,
@@ -59,8 +96,12 @@ create_data = partial(
     },
 )
 get_data_dict = partial(_transform_output_to_dict, func=create_data)
+get_estimates_dict = partial(
+    _transform_output_to_dict, func=estimate_second_central_difference
+)
 
 source = ColumnDataSource(data=get_data_dict(initial_value))
+estimates = ColumnDataSource(data=get_estimates_dict(initial_value))
 
 # initialize figure
 p = figure(
@@ -73,6 +114,7 @@ p = figure(
 
 # plot line for each kernel
 line_list = []
+estimate_line_list = []
 for kernel in kernels:
     kernel_id = "bm" if kernel == "BrownianMotion" else kernel.lower()
     line_list += [
@@ -86,22 +128,46 @@ for kernel in kernels:
             line_color=palette[kernel],
         )
     ]
+    estimate_line_list += [
+        p.line(
+            "x",
+            kernel_id,
+            source=estimates,
+            line_width=2,
+            line_alpha=0.4,
+            legend_label=kernel,
+            line_color=palette[kernel],
+        )
+    ]
 
 
 def update_selection(attr, old, new):
     """Update checkbox selection of kernel."""
-    for line_id, line in enumerate(line_list):
+    for line_id, (line, estimate_line) in enumerate(zip(line_list, estimate_line_list)):
         line.visible = line_id in new
+        estimate_line.visible = line_id in new
+
+
+def update_estimate_selection(attr, old, new):
+    """Update checkbox selection of population / estimation points."""
+    for line in line_list:
+        line.visible = 0 in new
+    for estimate_line in estimate_line_list:
+        estimate_line.visible = 1 in new
 
 
 checkbox = CheckboxButtonGroup(labels=kernels, active=[])
 checkbox.on_change("active", update_selection)
+
+checkbox2 = CheckboxButtonGroup(labels=["Population", "Estimate"], active=[])
+checkbox2.on_change("active", update_estimate_selection)
 
 
 def update_data_and_label(attr, old, new):
     """Update data of lines and set new text label."""
     delta = slider.value
     source.data = get_data_dict(delta)
+    estimates.data = get_estimates_dict(delta)
     annotation.text = f"δ = {delta:.3f}"
 
 
@@ -148,10 +214,5 @@ for loc in locations:
 p.toolbar.logo = None
 p.toolbar_location = None
 
-# set up layouts and add to document
-layout = column(row(slider, checkbox), p)
-curdoc().title = (
-    "Topics in Econometrics and Statistics, University of Bonn, Summer"
-    "Term 2021, Tim Mensinger"
-)
-curdoc().add_root(layout)
+layout = column(row(slider, checkbox, checkbox2), p)
+# curdoc().add_root(layout)  # noqa: E800
