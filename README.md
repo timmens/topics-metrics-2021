@@ -6,6 +6,30 @@
 > This repository contains material (slides, notes, codes) created for the project in
 > the class *topics in econometrics and statistics*.
 
+#### Presentation
+
+
+###### Latex Files
+
+Latex files are compiled using the build system pytask (see chapter *Building the Project* for
+details). This is done as many figures depend on all sorts of prior computations. This
+dependency structure is taken care of by the build system. Tex-files are found in
+``src/presentation``.
+
+###### Gaussian Process Visualization
+
+The visualization code is hosted here:
+[https://github.com/timmens/gp-visualization](https://github.com/timmens/gp-visualization).
+
+###### Centered Difference Visualization
+
+The (second) centered difference visualization of population and estimated quantities is
+done using [bokeh](https://docs.bokeh.org/en/latest/index.html). Script and notebook are
+found in ``src/bokeh``.
+
+
+---- 
+
 
 #### Building the Project
 
@@ -42,12 +66,3 @@ $ pytask
 ```
 
 The results can be found in the newly generated folder ``bld``.
-
----- 
-
-#### Presentation
-
-##### Gaussian Process Visualization
-
-The visualization code is hosted here:
-[gp-visualization](https://github.com/timmens/gp-visualization).

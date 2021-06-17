@@ -143,17 +143,22 @@ for kernel in kernels:
 
 def update_selection(attr, old, new):
     """Update checkbox selection of kernel."""
-    for line_id, (line, estimate_line) in enumerate(zip(line_list, estimate_line_list)):
-        line.visible = line_id in new
-        estimate_line.visible = line_id in new
+    selected_kernels = list(checkbox.active)
+    selected = list(checkbox2.active)
+    for line_id, line in enumerate(line_list):
+        line.visible = line_id in selected_kernels and 0 in selected
+    for line_id, estimate_line in enumerate(estimate_line_list):
+        estimate_line.visible = line_id in selected_kernels and 1 in selected
 
 
 def update_estimate_selection(attr, old, new):
     """Update checkbox selection of population / estimation points."""
-    for line in line_list:
-        line.visible = 0 in new
-    for estimate_line in estimate_line_list:
-        estimate_line.visible = 1 in new
+    selected_kernels = list(checkbox.active)
+    selected = list(checkbox2.active)
+    for line_id, line in enumerate(line_list):
+        line.visible = line_id in selected_kernels and 0 in selected
+    for line_id, estimate_line in enumerate(estimate_line_list):
+        estimate_line.visible = line_id in selected_kernels and 1 in selected
 
 
 checkbox = CheckboxButtonGroup(labels=kernels, active=[])
