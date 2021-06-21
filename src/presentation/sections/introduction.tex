@@ -1,6 +1,8 @@
 \section{Introduction}
 
 
+\subsection{Motivation}
+
 \begin{frame}{Paper}{Liebl et al. (2020)}
 \begin{figure}[ht]
     \centering
@@ -14,7 +16,8 @@
     \centering
     \vspace{-1cm}
     \includegraphics[width=0.55\textwidth]{files/drawing.pdf}
-    \fbox{\includegraphics[width=0.35\textwidth]{files/video-snapshot.pdf}}
+    \fbox{\includegraphics[width=0.35\textwidth]{files/video-snapshot.pdf}}\\[0.5em]
+    \hspace{7.7cm} \footnotesize Figure 1: Snapshot of YouTube video
 \end{figure}
 \end{frame}
 
@@ -103,4 +106,50 @@ node[right] {#5};
     \draw[line width=0.3mm, color=red, ->] (c2) .. controls (10, 2) and (12.5, 2.5) .. (13, 3.6);
 
 \end{tikzpicture}
+\end{frame}
+
+
+\subsection{The Model}
+
+\begin{frame}{The Model}
+
+    \vspace{-1cm}
+    \begin{align*}
+        \tcbhighmath[fuzzy halo=1mm with bonnblue,arc=2pt, boxrule=0pt,frame
+        hidden]{
+            Y_i = g\left(X_i(\tau_1), \dots, X_i(\tau_S) \right) +  \epsilon_i
+        }
+    \end{align*}
+
+    \vspace{0.5cm}
+    \begin{table}[]
+    \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{ll}
+          \labelitem $X_i = \{ X_i(t) : t \in [0, 1]\}$ & square integrable process\\
+          \labelitem $\mathbb{E}\left[\epsilon_i \mid X_i(t) \right] = 0$ &  exogeneity\\
+          \labelitem $g : \mathbb{R}^S \to \mathbb{R}$ & \emph{unknown} link function \\
+          \labelitem $\tau_1, \dots, \tau_S \in [0, 1]$ &  \emph{unknown} points of impact
+        \end{tabular}
+    \end{table}
+
+\end{frame}
+
+
+\begin{frame}{Approach}
+
+    \begin{table}[]
+    \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{ll}
+
+        \textcolor{bonnblue}{$1$. stage} & Estimate $S$ and $\tau_1, \dots, \tau_S$\\
+        \textcolor{bonnblue}{$2$. stage} & Estimate link function $g$
+
+        \end{tabular}
+    \end{table}
+
+
+    \pause
+    \vspace{1cm}
+    \emph{Focus here:} 1. stage
+
 \end{frame}

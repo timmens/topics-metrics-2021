@@ -13,28 +13,6 @@
 \email{tmensinger@uni-bonn.de}
 \date{}
 
-% math color
-% \makeatletter
-% \def\mathcolor#1#{\@mathcolor{#1}}
-% \def\@mathcolor#1#2#3{%
-%   \protect\leavevmode
-%   \begingroup
-%     \color#1{#2}#3%
-%   \endgroup
-% }
-% \makeatother
-
-% algorithm numbering
-%\makeatletter
-%\renewcommand{\fnum@algorithm}{\fname@algorithm}
-%\makeatother
-
-% caption color
-% \setbeamercolor{caption name}{fg=myred}
-
-% settings frame body
-% \setbeamerfont*{standout}{series=\bfseries, size=\huge}
-
 
 \begin{document}
 
@@ -53,16 +31,14 @@
     }
 }
 \begin{frame}
-  \tableofcontents
+    \tableofcontents[hideallsubsections]
 \end{frame}
 
 
 \include{sections/introduction}
-\include{sections/model}
 \include{sections/heuristics}
-\include{sections/identification}
-\include{sections/estimation}
-\include{sections/application}
+\include{sections/identification-estimation}
+\include{sections/generalization-extension}
 
 
 \begin{frame}{References}
@@ -74,6 +50,12 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{}
 \begin{frame}{Contact}
+    \vspace{-1.5cm}
+    \emph{
+    Slides and codes are hosted on GitHub.\\
+    For further questions contact me via email.
+    }
+    \vspace{1cm}
     \begin{itemize}
         \item[] \large \faIcon{github} \,\,\, \texttt{github.com/timmens/topics-metrics-2021}
         \item[] \large \faIcon{envelope} \,\, \texttt{tmensinger(at)uni-bonn.de}

@@ -31,7 +31,8 @@
 \usepackage[flushleft]{threeparttable}
 \usepackage{varwidth}
 
-\usepackage{algorithm}
+\usepackage{xpatch}
+\usepackage[plain]{algorithm}
 \usepackage{algorithmicx}
 \usepackage[noend]{algpseudocode}
 
@@ -58,6 +59,50 @@
   \clearfield{number}%
   \clearfield{pages}%
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Algorithm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\xpatchcmd{\algorithmic}{\itemsep\z@}{\itemsep=1ex plus1pt}{}{}
+\makeatother
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\indicator[1]{\scaleobj{1.4}{\mathbbm{1}} \! \left\{#1\right\}}
+\newcommand\expectation[1]{\mathbb{E}\left[#1\right]}
+
+\DeclareMathOperator*{\argmax}{argmax}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{bonnblue}{RGB}{4, 83, 156}  % hex: #04539C
+\definecolor{bonngrey}{RGB}{148, 147, 132}  % hex: #8A9384
+\definecolor{bonnyellow}{RGB}{251, 187, 6}  % hex: #FBBB06
+\definecolor{red}{RGB}{65, 16, 16}  % hex: #411010
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Auxiliary files
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{title}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Auxiliary commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \graphicspath{files/} % graphics path
+\newcommand{\labelitem}{\tikz\draw[black,fill=bonnblue] (0,0) circle (.35ex); \,\,}
+
+\newcommand{\blue}[1]{\textcolor{bonnblue}{#1}}
+\newcommand{\yellow}[1]{\textcolor{bonnyellow}{#1}}
+\newcommand{\grey}[1]{\textcolor{bonngrey}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -107,36 +152,25 @@
   }
 }
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Math definitions
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand\indicator[1]{\scaleobj{1.4}{\mathbbm{1}} \! \left\{#1\right\}}
-\newcommand\expectation[1]{\mathbb{E}\left[#1\right]}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Colors
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\definecolor{bonnblue}{RGB}{4, 83, 156}  % hex: #04539C
-\definecolor{bonngrey}{RGB}{148, 147, 132}  % hex: #8A9384
-\definecolor{bonnyellow}{RGB}{251, 187, 6}  % hex: #FBBB06
-\definecolor{red}{rgb}{65, 16, 16}  % hex: #411010
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Auxiliary files
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{title}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Auxiliary commands
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \graphicspath{files/} % graphics path
-\newcommand{\labelitem}{\tikz\draw[black,fill=bonnblue] (0,0) circle (.35ex); \,\,}
-
-\newcommand{\blue}[1]{\textcolor{bonnblue}{#1}}
-\newcommand{\yellow}[1]{\textcolor{bonnyellow}{#1}}
-\newcommand{\grey}[1]{\textcolor{bonngrey}{#1}}
-\newcommand{\red}[1]{\textcolor{red}{#1}}
+\AtBeginSubsection[]{
+  \setbeamertemplate{footline}[frame number]{}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{footline}{}
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{title}
+      {\usebeamerfont{title}\usebeamercolor[fg]{title}{\textsc{{\normalsize
+      \grey{\insertsectionhead}}\\[1em] \insertsubsectionhead}}}\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+  \addtobeamertemplate{navigation symbols}{}{%
+      \usebeamerfont{footline}%
+      \usebeamercolor[fg]{author}%
+      \hspace{1em}%
+      \raisebox{1em}[0pt][0pt]{%
+      \small \insertframenumber/\inserttotalframenumber \kern 0.25em
+      }
+  }
+}
