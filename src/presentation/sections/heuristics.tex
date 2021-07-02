@@ -34,7 +34,7 @@
 \end{frame}
 
 
-\begin{frame}{General Representation}{Equation 1}
+\begin{frame}{General Representation}
 
     \vspace{-0.5cm}
     \begin{align*}
@@ -90,9 +90,9 @@
 \begin{centering}
 \begin{tikzpicture}
 
-    \draw node at (8.35, 4) {$\sigma(s, t) = 2 \min\{s, t\}$};
+    \draw node at (8.35, 4) {$\sigma(s, t) = \min\{s, t\}$};
     \draw node at (9, 3) {$f_{XY}(t) \stackrel{eq.1}{=} \sum_{s = 1}^S \beta_s \, \sigma(t, \tau_s)$};
-    \draw node at (9.65, 2.2) {$= \sum_{s = 1}^S \beta_s \, 2 \min\{t, \tau_s\}$};
+    \draw node at (9.65, 2.2) {$= \sum_{s = 1}^S \beta_s \, \min\{t, \tau_s\}$};
 
     \draw[line width=0.25mm, ->] (0, -2.5) -- (0, 3.5) node [left] {$f_{XY}$};
     \draw[line width=0.25mm, ->] (-0.5, 0) -- (11, 0) node [below] {$t$};
@@ -144,7 +144,6 @@
     \foreach \x in {1,...,19}
         \draw[thin] (0.2*\x, 0.07) -- (0.2*\x, -0.07);
 
-    \pause
     \draw[thin, dashed, color=bonnblue] (0.2*13, 0.07) -- (0.2*13, 0.97);
     \draw[thin, dashed, color=bonnblue] (0.2*14, 0.07) -- (0.2*14, 0.86);
     \draw[thin, dashed, color=bonnblue] (0.2*15, 0.07) -- (0.2*15, 0.79);
@@ -157,11 +156,9 @@
     \draw[thin, dashed, color=bonnblue] (0.2*15, 0.79) -- (0, 0.79) node [left] {\tiny
         $f(t + \delta)$};
 
-    \pause
     \draw node at (3, 2.2) {\blue{$|\,f(t) - \frac{1}{2} (f(t - \delta) + f(t + \delta))| \approx
         0$}};
 
-    \pause
     \draw[thin, dashed, color=bonngrey] (0.2*7, 0.07) -- (0.2*7, 1.57);
     \draw[line width=0.2mm, dashed, color=bonngrey] (0.2*8, 0) -- (0.2*8, 2);
     \draw[thin, dashed, color=bonngrey] (0.2*9, 0.07) -- (0.2*9, 1.63);
@@ -173,7 +170,6 @@
     \draw[thin, dashed, color=bonngrey] (0.2*9, 1.63)-- (0, 1.63) node [left] {\tiny
         $f(\tau + \delta)$};
 
-    \pause
     \draw node at (3.2, 1.8) {\grey{$|\,f(\tau) - \frac{1}{2} (f(\tau - \delta) + f(\tau +
     \delta))| \gg 0$}};
 
@@ -200,7 +196,7 @@
         \quad For small $\delta$, $h'(t)$ is approximated by $C / \delta$.
 
     \vspace{0.5cm}
-    \grey{Second derivative.}\\
+    \blue{Second derivative.}\\
         \quad Applying the first-order centered difference twice yields the second-order\\
         \quad difference $C^2 = C^2(t, \delta; h) = h(t + \delta) + h(t - \delta) -
         2h(t)$. For small $\delta$, $h''(t)$ is\\ \quad approximated by $C^2 / \delta$.
@@ -212,12 +208,12 @@
 
     \begin{itemize}
     \setlength\itemsep{1.5em}
-        \item[\labelitem] $f(t) - \frac{1}{2}\left(f(t + \delta) + f(t - \delta)\right)
-            $ \pause
-        \item[\labelitem] $C^2(t, \delta; f) = \left(f(t + \delta) + f(t -
-            \delta)\right) - 2 f(t)$ \pause
-        \item[\labelitem] $\implies C^2(t, \delta; f) = - 2 \Big[ f(t) - \frac{1}{2} \left(f(t +
-            \delta) + f(t - \delta)\right) \Big]$
+        \item[\labelitem] $f_{XY}(t) - \frac{1}{2}\left(f_{XY}(t + \delta) + f_{XY}(t -
+            \delta)\right) $ \pause
+        \item[\labelitem] $C^2(t, \delta; f_{XY}) = \left(f_{XY}(t + \delta) + f_{XY}(t
+            - \delta)\right) - 2 f_{XY}(t)$ \pause
+        \item[\labelitem] $\implies C^2(t, \delta; f_{XY}) = - 2 \Big[ f_{XY}(t) -
+                \frac{1}{2} \left(f_{XY}(t + \delta) + f_{XY}(t - \delta)\right) \Big]$
     \end{itemize}
 
 \end{frame}

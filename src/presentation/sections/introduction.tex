@@ -42,8 +42,9 @@
 
          % time-point
          \draw[line width=0.3mm, color=bonnblue] (-1, 0.1) -- (-1, -0.1);
-         \node[] at (-1, -0.75) {\textcolor{bonnblue}{$\bm{\tau}$}};
-         \draw[color=bonnblue, line width=0.3mm, ->] (-1, 0.25) .. controls (1, 1) and (3, 3) .. (5.5, 1) node [right] {\textcolor{bonnblue}{$\bm{X_i(\tau)}$}};
+         \node[] at (-1, -0.75) {\textcolor{bonnblue}{$\bm{t}$}};
+         \draw[color=bonnblue, line width=0.3mm, ->] (-1, 0.25) .. controls (1, 1) and
+             (3, 3) .. (5.5, 1) node [right] {\textcolor{bonnblue}{$\bm{X_i(t)}$}};
 
          \pause
          
@@ -87,23 +88,17 @@ node[right] {#5};
     \brownianmotion{180}{0.05}{0.25}{color=bonngrey, line width=0.2mm}{$X_3(t)$}
     \brownianmotion{180}{0.05}{0.25}{color=bonnyellow, line width=0.2mm}{$X_2(t)$}
     \brownianmotion{180}{0.05}{0.25}{color=bonnblue, line width=0.2mm}{$X_1(t)$}
-    
-    \pause
-
-    \draw[line width=0.3mm, color=red] (2, 4) -- (2, -3) node [right] {$\tau_1$};
-    \draw[line width=0.3mm, color=red] (5, 4) -- (5, -3) node [right] {$\tau_2$};
-
-    \pause
 
     \node[] at (12, 4) {$Y_1 \simeq g\big(X_1(\tau_1), X_1(\tau_2)\big)$};
 
-    \pause
+    \draw[line width=0.2mm, dashed] (2, 4) -- (2, -3) node [right] {$\tau_1$};
+    \draw[line width=0.2mm, dashed] (5, 4) -- (5, -3) node [right] {$\tau_2$};
 
-    \node[circle, draw=red, minimum size=1mm, scale=0.9] (c1) at (2, 1.9) {};
-    \draw[line width=0.3mm, color=red, ->] (c1) .. controls (3, 6) and (10, 6) .. (11.5, 4.5);
+    \node[circle, draw=black, minimum size=1mm, scale=0.9] (c1) at (2, 1.9) {};
+    \draw[line width=0.2mm, ->] (c1) .. controls (3, 6) and (10, 6) .. (11.5, 4.5);
 
-    \node[circle, draw=red, minimum size=1mm, scale=0.9] (c2) at (5, 2.6) {};
-    \draw[line width=0.3mm, color=red, ->] (c2) .. controls (10, 2) and (12.5, 2.5) .. (13, 3.6);
+    \node[circle, draw=black, minimum size=1mm, scale=0.9] (c2) at (5, 2.6) {};
+    \draw[line width=0.2mm, ->] (c2) .. controls (10, 2) and (12.5, 2.5) .. (13, 3.6);
 
 \end{tikzpicture}
 \end{frame}
@@ -147,8 +142,6 @@ node[right] {#5};
         \end{tabular}
     \end{table}
 
-
-    \pause
     \vspace{1cm}
     \emph{Focus here:} 1. stage
 

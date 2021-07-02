@@ -49,9 +49,9 @@ $$
     \[
     \expectation{Z_{\delta, i}(t) Y_i} = 
         \begin{cases}
-            \theta_s c(\tau_s) \delta^{\kappa} + o(\delta^{\kappa}) \quad, t = \tau_s
+            \mathcal{O}(\delta^\kappa) \quad, \text{if } t = \tau_s
             \text{ for some } \tau_s \in \{\tau_1, \dots, \tau_S\}\\
-            \mathcal{O}(\delta^2) \quad\quad\quad\quad\quad\,\,\,, \text{else}
+            \mathcal{O}(\delta^2) \quad, \text{else}
         \end{cases}
     \]
 
@@ -64,10 +64,9 @@ $$
 
     \vspace{0.5cm}
 
-    \textcolor{green}{Needs checking!}
-
     As seen in visualization, need sensible choice of $\delta$\\[1em]
-    \labelitem $\delta$ too small $\implies$ estimation noise dominates\\
+    \labelitem $\delta$ too small (e.g. $\delta^\kappa \sim n^{-1}$) $\implies$
+        estimation noise dominates\\
     \labelitem $\delta$ too big $\implies$ cannot distinguish between neighboring points
 
 
@@ -149,8 +148,8 @@ and we select only the first $\hat{\tau}_s$, where $s = 1, \dots, \hat{S}$.
     \end{table}
 
 Condition \blue{(b)} is fulfilled, for example,if $Y_i$ is bounded, as in the logistic
-regression case, or if the errors $\epsilon_i$ are sub-Gaussian and $g$ has bounded
-partial derivatives.
+regression case, or if \blue{(a)} holds and the errors $\epsilon_i$ are sub-Gaussian and
+$g$ has bounded partial derivatives.
 
 \end{frame}
 
