@@ -44,8 +44,8 @@ def _transform_output_to_dict(delta, func):
 
 
 n_grid_points = 200
-start = 0.001
-end = 0.4
+start = 0.01
+end = 0.5
 initial_value = 0.01
 kernels = ["BrownianMotion", "RBF", "Matern"]
 locations = [1 / 4, 2 / 4, 3 / 4]
@@ -54,7 +54,7 @@ betas = [1, 3, -2]
 data = {
     kernel: simulate_model(
         n_samples=500,
-        n_periods=int(end / start),
+        n_periods=int(2 * end / start),
         n_points=len(locations),
         beta=[0] + betas,
         locations=locations,
@@ -67,8 +67,7 @@ data = {
 
 def _estimate_second_central_difference(delta, data, start, end):
     n_neighbors = int(delta / start)
-
-    grid = np.linspace(0, 1, int(end / start))
+    grid = np.linspace(0, 1, int(2 * end / start))
     df = pd.DataFrame({"x": grid})
     for kernel, (y, X, _) in data.items():
         result = np.tile(np.nan, len(X))
@@ -105,8 +104,8 @@ estimates = ColumnDataSource(data=get_estimates_dict(initial_value))
 
 # initialize figure
 p = figure(
-    plot_width=900,
-    plot_height=500,
+    plot_width=1200,
+    plot_height=600,
     tools="wheel_zoom",
     x_range=[0, 1],
     y_range=[-3, 3],
@@ -179,8 +178,11 @@ def update_data_and_label(attr, old, new):
 slider = Slider(title="delta", value=initial_value, start=start, end=end, step=start)
 slider.on_change("value", update_data_and_label)
 
-annotation = Label(x=0.05, y=2.5, text="δ = 0.01", text_font_size="22pt")
+annotation = Label(x=0.27, y=2.5, text="δ = 0.01", text_font_size="22pt")
+ylabel_annotation = Label(x=0.01, y=2.5, text="f_zy", text_font_size="20pt")
+
 p.add_layout(annotation)
+p.add_layout(ylabel_annotation)
 
 p.legend.location = "top_right"
 p.legend.label_text_font = "Palatino"

@@ -55,7 +55,7 @@
 \begin{tikzpicture}
 
     \draw node at (8.35, 4) {$\sigma(s, t) = \indicator{s = t}$};
-    \draw node at (9, 3) {$f_{XY}(t) \stackrel{eq.1}{=} \sum_{s = 1}^S \beta_s \, \sigma(t, \tau_s)$};
+    \draw node at (9, 3) {$f_{XY}(t) = \sum_{s = 1}^S \beta_s \, \sigma(t, \tau_s)$};
     \draw node at (9.65, 2.2) {$= \sum_{s = 1}^S \beta_s \, \indicator{t = \tau_s}$};
 
     \draw[line width=0.25mm, ->] (0, -2.5) -- (0, 3.5) node [left] {$f_{XY}$};
@@ -91,7 +91,7 @@
 \begin{tikzpicture}
 
     \draw node at (8.35, 4) {$\sigma(s, t) = \min\{s, t\}$};
-    \draw node at (9, 3) {$f_{XY}(t) \stackrel{eq.1}{=} \sum_{s = 1}^S \beta_s \, \sigma(t, \tau_s)$};
+    \draw node at (9, 3) {$f_{XY}(t) = \sum_{s = 1}^S \beta_s \, \sigma(t, \tau_s)$};
     \draw node at (9.65, 2.2) {$= \sum_{s = 1}^S \beta_s \, \min\{t, \tau_s\}$};
 
     \draw[line width=0.25mm, ->] (0, -2.5) -- (0, 3.5) node [left] {$f_{XY}$};
@@ -180,43 +180,43 @@
 \end{frame}
 
 
-\begin{frame}{Finite Difference and Differentiability}
-    \vspace{-1cm}
-    Let $h: [0, 1] \to \mathbb{R}$.
+% \begin{frame}{Finite Difference and Differentiability}
+%     \vspace{-1cm}
+%     Let $h: [0, 1] \to \mathbb{R}$.
+% 
+%     \vspace{0.25cm}
+%     \blue{Definition.}\\
+%         \quad $h$ is differentiable at $t \in (0, 1)$ if
+%         $\lim_{\delta \to 0} (h(t + \delta) - h(t - \delta)) / \delta$ exists.
+% 
+%     \vspace{0.5cm}
+%     \blue{Definition.}\\
+%         \quad $C = C(t, \delta; h) = h(t + \delta) - h(t - \delta)$ is the (first-order)
+%         centered difference of $h$.\\
+%         \quad For small $\delta$, $h'(t)$ is approximated by $C / \delta$.
+% 
+%     \vspace{0.5cm}
+%     \blue{Second derivative.}\\
+%         \quad Applying the first-order centered difference twice yields the second-order\\
+%         \quad difference $C^2 = C^2(t, \delta; h) = h(t + \delta) + h(t - \delta) -
+%         2h(t)$. For small $\delta$, $h''(t)$ is\\ \quad approximated by $C^2 / \delta$.
+% 
+% \end{frame}
 
-    \vspace{0.25cm}
-    \blue{Definition.}\\
-        \quad $h$ is differentiable at $t \in (0, 1)$ if
-        $\lim_{\delta \to 0} (h(t + \delta) - h(t - \delta)) / \delta$ exists.
 
-    \vspace{0.5cm}
-    \blue{Definition.}\\
-        \quad $C = C(t, \delta; h) = h(t + \delta) - h(t - \delta)$ is the (first-order)
-        centered difference of $h$.\\
-        \quad For small $\delta$, $h'(t)$ is approximated by $C / \delta$.
-
-    \vspace{0.5cm}
-    \blue{Second derivative.}\\
-        \quad Applying the first-order centered difference twice yields the second-order\\
-        \quad difference $C^2 = C^2(t, \delta; h) = h(t + \delta) + h(t - \delta) -
-        2h(t)$. For small $\delta$, $h''(t)$ is\\ \quad approximated by $C^2 / \delta$.
-
-\end{frame}
-
-
-\begin{frame}{Connecting Ideas}
-
-    \begin{itemize}
-    \setlength\itemsep{1.5em}
-        \item[\labelitem] $f_{XY}(t) - \frac{1}{2}\left(f_{XY}(t + \delta) + f_{XY}(t -
-            \delta)\right) $ \pause
-        \item[\labelitem] $C^2(t, \delta; f_{XY}) = \left(f_{XY}(t + \delta) + f_{XY}(t
-            - \delta)\right) - 2 f_{XY}(t)$ \pause
-        \item[\labelitem] $\implies C^2(t, \delta; f_{XY}) = - 2 \Big[ f_{XY}(t) -
-                \frac{1}{2} \left(f_{XY}(t + \delta) + f_{XY}(t - \delta)\right) \Big]$
-    \end{itemize}
-
-\end{frame}
+% \begin{frame}{Connecting Ideas}
+% 
+%     \begin{itemize}
+%     \setlength\itemsep{1.5em}
+%         \item[\labelitem] $f_{XY}(t) - \frac{1}{2}\left(f_{XY}(t + \delta) + f_{XY}(t -
+%             \delta)\right) $ \pause
+%         \item[\labelitem] $C^2(t, \delta; f_{XY}) = \left(f_{XY}(t + \delta) + f_{XY}(t
+%             - \delta)\right) - 2 f_{XY}(t)$ \pause
+%         \item[\labelitem] $\implies C^2(t, \delta; f_{XY}) = - 2 \Big[ f_{XY}(t) -
+%                 \frac{1}{2} \left(f_{XY}(t + \delta) + f_{XY}(t - \delta)\right) \Big]$
+%     \end{itemize}
+% 
+% \end{frame}
 
 
 \begin{frame}{Estimation?}
@@ -226,7 +226,8 @@
             \delta)\right) / 2$
         \item[\labelitem] $\implies \expectation{Z_{\delta, i}(t) Y_i} = f_{XY}(t) -
             \frac{1}{2}\left(f_{XY}(t + \delta) + f_{XY}(t - \delta)\right)$
-        \item[\labelitem] Estimate by: $\,\, n^{-1}\sum_{i=1}^n Z_{\delta, i}(t) Y_i$ \pause
+        \item[\labelitem] Estimate by: $\,\, n^{-1}\sum_{i=1}^n Z_{\delta, i}(t) Y_i$
+        \item[\labelitem] Denote by: $f_{ZY}$ and $\hat{f}_{ZY}$
         \item[\labelitem] But what about $\delta$? \pause $\implies$ Visualization
     \end{itemize}
 \end{frame}
