@@ -122,7 +122,7 @@ for kernel in kernels:
             kernel_id,
             source=source,
             line_width=3,
-            line_alpha=0.6,
+            line_alpha=0.8,
             legend_label=kernel,
             line_color=palette[kernel],
         )
@@ -133,7 +133,7 @@ for kernel in kernels:
             kernel_id,
             source=estimates,
             line_width=2,
-            line_alpha=0.4,
+            line_alpha=0.8,
             legend_label=kernel,
             line_color=palette[kernel],
         )
