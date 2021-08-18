@@ -1,0 +1,58 @@
+\documentclass[a4paper, 12pt]{article}
+
+\input{preamble}
+
+
+% Title page
+\title{\textbf{Point-of-Impact Models}\\
+\large Topics in Econometrics and Statistics, Summer, 2021
+}
+\date{}
+\author{Tim Mensinger%
+  \thanks{\href{mailto:tmensinger@uni-bonn.de}{tmensinger[at]uni-bonn.de}}}
+\affil{University of Bonn}
+
+
+\begin{document}
+
+\onehalfspacing
+
+
+\setlength{\abovedisplayskip}{-20pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+
+
+\thispagestyle{empty}
+\pagenumbering{gobble}
+\maketitle
+\begin{abstract}
+    In this essay I introduce the core insights presented in \cite{Kneip2020}. I extend
+    the work by extensive simulations in cases that have not been considered in the
+    original paper. All materials needed to reproduce this project can be found
+    online\footnote{Online repository:
+    \url{https://github.com/timmens/topics-metrics-2021}}.
+\end{abstract}
+
+
+\newpage
+\setcounter{tocdepth}{2}
+\tableofcontents
+\newpage
+
+\input{sections/introduction}
+\input{sections/review}
+\input{sections/extension}
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+\newpage
+\nocite{*}
+\printbibliography
+
+\appendix
+
+
+\end{document}
