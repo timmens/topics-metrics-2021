@@ -1,4 +1,69 @@
 \section{Extension}
 \label{section:extension}
 
-\textcolor{red}{\lipsum}
+In this section I consider a generalization which was touched upon in the previous
+section. This corresponds to the generalization discussed in subsection 2.4.2
+(\emph{Generalizing covariance assumption 1}) of \cite{Kneip2020}.
+
+One of the main restrictions of assumption \ref{assumption:1} is that it excludes
+smooth, twice continuously differentiable processes with $\kappa \geq 2$. On first
+thought it may be intuitive that a certain degree of \emph{local variation} is necessary
+for identification; as also discussed in \cite{Kneip2016}. However, in light of theorem
+\ref{theorem:1} this is not necessary. As discussed in the previous section, a sensible
+criterion function inherits the properties of the covariance kernel at the diagonal to
+allow for the differentiation between regular time points and points-of-impact.
+Previously under assumption \ref{assumption:1} we presumed that the kernel is twice
+continuously differentiable off the diagonal and not twice continuously differentiable
+on the diagonal. This can be relaxed to the rather general case where the kernel is
+less smooth on the diagonal than off the diagonal. For example, we may extend the
+assumption to the case $\kappa < 4$, which then implies that the kernel may be
+four-times continuously differentiable off the diagonal but not on the diagonal. Given
+this modified assumption we would have to adapt the definition of $f_{ZY}$ and hence the
+criterion function.
+
+This generalization may be used for any $d = 2, 4, 6, 8, \dots$; using assumption
+\ref{assumption:1} with $\kappa < d$. For each $d$ the criterion function then involves
+the $d$-th order finite difference. Again, let $FD(h, \delta, \ell, x)$ denote the
+$\ell$-th order finite difference of function $h$ with step size $\delta$ at $x$.
+Algorithm \ref{algorithm:1} can then be generalized by updating lines 3 and 4. Since
+higher order finite difference computations need multiple steps in the argument the grid
+spanned in line 3 has to be adjusted. Most importantly the second-order finite
+difference formula from line 4 is exchanged for the general case. The updated version is
+listed as algorithm \ref{algorithm:2}. This version of the algorithm is used in the
+Monte-Carlo study (section \ref{section:monte_carlo}) and available online:
+\url{https://github.com/timmens/fdapoi}.
+
+\begin{tcolorbox}[standard jigsaw, opacityback=0]
+
+\begin{algorithm}[H]
+\caption{Generalization of algorithm \ref{algorithm:1}.}
+\label{algorithm:2}
+
+\begin{algorithmic}[1]
+  \State compute $\hat{f}_{XY}(t_j) = \sum_i X_i(t_j) Y_i / n$, for all $j=1,\dots,p$
+  \State choose $\delta > 0$ s.t. $\exists \, k_{\delta} \in \mathbb{N}$ with $1 \leq
+  k_{\delta} < (p - 1)/2$ and $\delta = k_{\delta} / (p-1)$
+  \State define $\mathcal{J}_{\delta} = \Call{ComputeGrid}{p, k_{\delta}, d}$ and set
+  $\ell = 1$
+  \State compute $\hat{f}^\ast(t_j) = FD(\hat{f}_{XY}, \delta, d, t_j) \,$ for all
+  $j \in \mathcal{J}_{\delta}$
+  \While{$\mathcal{J}_{\delta} \neq \varnothing$}
+  \State estimate $\hat{\tau}_{\ell} = \argmax \left\{|\,\hat{f}^\ast(t_j)| : \text{for
+    } t_j \text{ with } j \in \mathcal{J}_{\delta}\right\}$
+    \State update $\mathcal{J}_{\delta} \leftarrow \mathcal{J}_{\delta} \setminus
+    [\hat{\tau}_{\ell} - \sqrt{\delta}, \hat{\tau}_{\ell} + \sqrt{\delta}]$
+    \State update $\ell \leftarrow \ell + 1$
+  \EndWhile
+  \State \textbf{return} $\{\hat{\tau}_{\ell}\}$
+\end{algorithmic}
+\end{algorithm}
+
+\end{tcolorbox}
+
+Using arbitrary large values for $d$ does not come without costs though. There are two
+main potential problems. \textcolor{red}{One, higher order finite differences can be
+numerically unstable.} And two, for higher order differences fewer points in $\{t_1,
+\dots, t_p\}$ can be used, as an evaluation of the finite difference formula requires
+more and more points to the left and right of the evaluation point. The latter point
+implying that the algorithm becomes blind to points-of-impact close to the borders $a$
+and $b$.

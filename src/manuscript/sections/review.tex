@@ -3,18 +3,19 @@
 
 In this section I present the general setting of \cite{Kneip2020}, albeit restricted to
 the definitions, assumptions and theorems that are needed to understand the extension in
-section \ref{section:extension}. We assume there is an independent and identically
-distributed sample of data $(X_i, y_i)$ for $i=1,\dots,n$ individuals. The functional
-regressors $X_i = \{ X_i(t) : t \in [a, b] \}$ is assumed to be a square-integrable
-process and $y_i$ is a real-valued random variable. The relationship between regressors
-and outcome is modeled as
+section \ref{section:extension}.
+
+We assume there is an independent and identically distributed sample of data $(X_i,
+y_i)$ for $i=1,\dots,n$ individuals. The functional regressors $X_i = \{ X_i(t) : t \in
+[a, b] \}$ is assumed to be a square-integrable process and $y_i$ is a real-valued
+random variable. The relationship between regressors and outcome is modeled as
 
 \[
     y_i = g \left( X_i(\tau_1), \dots, X_i(\tau_S) \right) + \epsilon_i \,,
 \]
 
 with $\epsilon_i$ representing the error term satisfying $\expectation{\epsilon_i \mid
-X_i(t)} = 0$ for all $t \in [a, b]$. The points of impact are denoted by $\tau_1, \dots,
+X_i(t)} = 0$ for all $t \in [a, b]$. The points-of-impact are denoted by $\tau_1, \dots,
 \tau_S$; where the specific locations $\tau_s \in [a, b]$ are assumed to be unknown a
 priori, as well as the number of points $S \in \mathbb{N}_0$. In the same way the link
 function $g$ is assumed to be unknown as well. The paper considers centred random
@@ -24,9 +25,8 @@ Now one may question how it is possible to estimate the locations as well as the
 number while allowing the link function $g$ to be flexible. The upcoming repetitions of
 the main assumptions and theorems in \cite{Kneip2020} illustrate that restrictions on
 $X_i$ through the covariance kernel suffice for the identification and estimation.
-
-Consider first the covariance kernel of the functional regressor. Let $\sigma(t, s) =
-\expectation{X_i(t) X_i(s)}$ denote the covariance kernel of $X_i$.
+Consider first the covariance kernel of the functional regressor, which I denote by
+$\sigma(t, s) = \expectation{X_i(t) X_i(s)}$.
 
 
 \begin{assumption}
