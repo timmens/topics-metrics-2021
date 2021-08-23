@@ -37,6 +37,8 @@ def simulate_model(
         poi_location (np.ndarray): Location of points-of-impact. Has shape (n_points,).
 
     """
+    beta = np.atleast_1d(beta)
+
     if len(beta) != n_points + 1:
         raise ValueError("Length of argument beta must be equal to n_points + 1.")
     beta = np.array(beta)

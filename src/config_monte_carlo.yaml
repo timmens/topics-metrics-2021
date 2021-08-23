@@ -1,24 +1,31 @@
-n_sim: 10
+order: 
+    - 2
+    - 4
+
+n_sim: 2
 
 n_samples:
     - 20
-    - 60
-      # - 100
+    - 50
+    - 100
 
 n_periods: 
     - 100
 
 n_points:
-      # - 0
+    - 0
     - 1
     - 2
-    
+
 beta:
-      # - [1]
+    - [1]
     - [1, 2]
     - [1, 2, -1]
     
 kernel:
-    - Matern
-    - RBF
-      # - BrownianMotion
+    - "RBF"
+
+kernel_kwargs:
+    - "list(length_scale=0.1)"
+    - "list(length_scale=0.05)"
+    - "list(length_scale=0.01)"

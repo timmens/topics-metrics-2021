@@ -1,11 +1,5 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import sklearn.gaussian_process.kernels as sklearn_kernels
-
-
-def plot_process(process):
-    """Plot process."""
-    _ = plt.plot(np.linspace(0, 1, len(process)), process)
 
 
 def simulate_gaussian_process(n_sim, n_periods, kernel, seed=None, kernel_kwargs=None):
@@ -24,12 +18,11 @@ def simulate_gaussian_process(n_sim, n_periods, kernel, seed=None, kernel_kwargs
         process (np.ndarray): Simulated process of shape (n_periods, n_sim).
 
     """
-    if kernel == "BrownianMotion":
-        process = _simulate_brownian_motion(1 / (n_periods - 1), n_periods, n_sim)
-    else:
-        grid = np.linspace(0, 1, n_periods)
-        cov = get_kernel(kernel, kernel_kwargs)(grid)
-        process = np.random.multivariate_normal(np.zeros(n_periods), cov, size=n_sim).T
+    seed = 0 if seed is None else seed
+    np.random.seed(seed)
+    grid = np.linspace(0, 1, n_periods)
+    cov = get_kernel(kernel, kernel_kwargs)(grid)
+    process = np.random.multivariate_normal(np.zeros(n_periods), cov, size=n_sim).T
     return process
 
 
@@ -48,8 +41,17 @@ def get_kernel(kernel, kernel_kwargs=None):
     kernel_kwargs = _add_defaults_to_kwargs(kernel, kernel_kwargs)
     if kernel == "BrownianMotion":
 
-        def _kernel(x, y):
+        def _kernel(X):  # noqa: N803
+            x, y = np.meshgrid(X, X)
             return kernel_kwargs["sigma"] ** 2 * np.minimum(x, y)
+
+    elif kernel == "SelfSimilar":
+
+        def _kernel(X):  # noqa: N803
+            sigma = kernel_kwargs["sigma"]
+            kappa = kernel_kwargs["kappa"]
+            x, y = np.meshgrid(X, X)
+            return sigma * (x ** kappa + y ** kappa - np.abs(x - y) ** kappa)
 
     else:
         kernel = getattr(sklearn_kernels, kernel)(**kernel_kwargs)
@@ -79,56 +81,9 @@ def _add_defaults_to_kwargs(kernel, kwargs):
     elif kernel == "BrownianMotion":
         if "sigma" not in kwargs:
             kwargs["sigma"] = np.sqrt(2)
+    elif kernel == "SelfSimilar":
+        if "sigma" not in kwargs:
+            kwargs["sigma"] = 3.0
+        if "kappa" not in kwargs:
+            kwargs["kappa"] = 3.0
     return kwargs
-
-
-def _simulate_polynomial(a, b, n_periods, n_sim, order=5, mu=0, sigma=1):
-    coefficients = np.random.normal(mu, sigma, (n_sim, order + 1))
-    grid = np.linspace(a, b, n_periods)
-    process = np.empty((n_periods, n_sim))
-    for k in range(n_sim):
-        process[:, k] = np.polyval(coefficients[k], grid)
-    return process
-
-
-def _simulate_brownian_motion(dt, n_periods, n_sim):
-    innovations = np.random.normal(0, np.sqrt(dt), (n_periods, n_sim))
-    process = np.cumsum(innovations, axis=0)
-    return process
-
-
-def _simulate_ornstein_uhlenbeck(dt, n_periods, n_sim, theta=5, sigmaou=3.5):
-    mu = np.exp(-theta * dt)
-    sigma = np.sqrt((1 - mu ** 2) * sigmaou ** 2 / (2 * theta))
-    innovation = np.random.normal(0, 1, (n_periods - 1, n_sim))
-    process = np.zeros((n_periods, n_sim))
-    for j in range(1, n_periods):
-        process[j] = process[j - 1] * mu + sigma * innovation[j - 1]
-    return process
-
-
-def _simulate_white_noise(n_periods, n_sim, sigma=1):
-    process = np.random.normal(0, sigma, (n_periods, n_sim))
-    return process
-
-
-def _simulate_constant_normal(n_periods, n_sim, sigma=1):
-    innovation = np.random.normal(0, sigma, n_sim)
-    process = np.tile(innovation, (n_periods, 1))
-    return process
-
-
-def _simulate_poisson(dt, n_periods, n_sim, rate=1):
-    innovations = np.random.poisson(dt * rate, (n_periods, n_sim))
-    process = innovations
-    process[0, :] = 0
-    process = process.cumsum(axis=0)
-    return process
-
-
-def _simulate_levy(dt, n_periods, n_sim, increment_simulator):
-    process = np.zeros((n_periods, n_sim))
-    innovations = increment_simulator(dt, n_periods - 1, n_sim)
-    process[1:, :] = innovations
-    process = process.cumsum(axis=0)
-    return process

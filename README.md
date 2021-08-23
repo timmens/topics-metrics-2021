@@ -55,8 +55,8 @@ devtools::install_github("lidom/fdapoi/fdapoi", dependencies=FALSE)
 ```
 
 > *Note that there may be some issues when installing the R dependencies, but they can
-> be
-operating system specific and are usally easy to solve.*
+> be operating system specific and are usally easy to solve.* In my case I had to run
+> ``Sys.setenv(TAR = "/bin/tar")`` in the R shell.
 
 *Finally*, to actually **run the project** do
 

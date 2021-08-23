@@ -1,7 +1,82 @@
 \section{Monte-Carlo Study}
 \label{section:monte_carlo}
 
-In this last section I test the aforementioned extension. The study compares algorithm
-\ref{algorithm:1} and \ref{algorithm:2} in the case of $d=4$. For this I develop a data
-generating process (DGP) which fulfills the more general assumption \ref{assumption:1}
-with $\kappa < d$.
+In this last section I test the aforementioned extension using a simulation study.
+
+The Monte-Carlo design compares an application of Algorithm \ref{algorithm:2} with for
+$d \in \{2, 4\}$. To gain a better understanding on the criticallity of Assumption
+\ref{assumption:1}, and its relaxation, I consider a parametrized functional regressor
+which allows me to choose the level of local variation. Moreover, I vary the number of
+observed data points to analyze sample size effects.
+
+\paragraph{Setup.}
+
+The data generating process is setup as follows. For a given length scale $\ell \in
+\{0.1, 0.05, 0.01\}$, the functional regressors $X_i$ are simulated as a mean-zero
+Gaussian process with kernel $\sigma(s, t) = \exp\left(-|s - t|^2 / 2 \ell^2\right)$.
+The process is observed for $T=100$ periods on an equidistant grid. I compare how the
+method performs for $S \in \{0, 1, 2\}$ points-of-impact. In the case of $S = 1$ the
+location is given by $\tau_1 = 49$. And in the case of $S = 2$ we have $(\tau_1, \tau_2)
+= (24, 49)$. Given the number of points-of-impact $S$, the coefficient vectors are
+fixed, with: $\beta_0 = (1)$, $\beta_1 = (1, 2)$ and $\beta_2 = (1, 2, -1)$. The
+outcomes are then simulated using
+
+\[
+    y_i = \beta_{S, 0} + \sum_{r = 1}^S \beta_{S, r} \, X_i(\tau_r) + \epsilon_i \,,
+\]
+where $\epsilon_i$ is a Gaussian i.i.d. error with $Var(\epsilon_i) = 1/2$. Note that
+$\beta_{S, r}$ denotes the $r$-th entry of the $(S+1)$-dimensional coefficient vector,
+in the case of $S$ number of points-of-impact.
+
+In Figure \ref{figure:process_scale_comparison} I illustrate three simulated sample
+paths of the functional regressor, for the three different length scales $\ell$. As is
+clearly visible, for a small length scale the process posseses a lot of local variation,
+while for a larger length scale the process is very smooth with a low level of
+variation.
+
+I perform 100 Monte-Carlo repetitions over the parameter grid spanned by $d = \{2, 4\},
+S = \{0, 1, 2\}, \ell = \{0.1, 0.05, 0.01\}$ and $n = \{20, 50, 100\}$. I choose to
+illustrate the results using frequency plots that capture all estimated points-of-impact
+over the whole repetition. Alternatively, one could have computed, for example, the
+Hausdorff-distance between the true and estimated points-of-impact in each simulation
+run, or reported the average number of estimated points-of-impact. For the sake of
+brevity I stick to only one way of reporting the results. Furthermore, in this study I
+focus only on the estimation of the points-of-impact and not on the subsequent
+estimation of the coefficient parameters.
+
+
+\begin{figure}
+
+\centering
+\begin{subfigure}[b]{\textwidth}
+\begin{tcolorbox}[standard jigsaw, opacityback=0, top=0pt, left=0pt, right=0pt, bottom=0pt]
+    \includegraphics[height=0.2\pdfpageheight, width=0.98\textwidth]{../../bld/figures/process_scale0.01}
+\end{tcolorbox}
+\end{subfigure}
+
+\hfill
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\begin{tcolorbox}[standard jigsaw, opacityback=0, top=0pt, left=0pt, right=0pt, bottom=0pt]
+    \includegraphics[height=0.2\pdfpageheight, width=0.98\textwidth]{../../bld/figures/process_scale0.05}
+\end{tcolorbox}
+\end{subfigure}
+
+\hfill
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\begin{tcolorbox}[standard jigsaw, opacityback=0, top=0pt, left=0pt, right=0pt, bottom=0pt]
+    \includegraphics[height=0.2\pdfpageheight, width=0.98\textwidth]{../../bld/figures/process_scale0.1}
+\end{tcolorbox}
+\end{subfigure}
+
+\caption{Simulated trajectories of a Gaussian process with radial basis function kernel
+and differing length scale parameter; top: $\ell = 0.01$; center: $\ell = 0.05$; bottom:
+$\ell = 0.1$.}
+\label{figure:process_scale_comparison}
+\end{figure}
+
+
+\paragraph{Results.}

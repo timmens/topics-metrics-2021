@@ -7,6 +7,97 @@ import pandas as pd
 from src.processes import get_kernel
 
 
+def plot_process(process):
+    """Plot process."""
+    fig, ax = plt.subplots(figsize=(12, 4))
+    ax.plot(np.linspace(0, 1, len(process)), process)
+
+    for pos in ["left", "bottom", "right", "top"]:
+        ax.spines[pos].set_visible(False)
+
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    return fig, ax
+
+
+def create_bar_plot(order, n_points, df_kwargs, df_results, threshold=1):
+    """Create barplot for manuscript."""
+
+    def _compute_increment(n, l, width):  # noqa: E741
+        increment_dict = {20: -width / 2, 50: 0, 100: width / 2}
+        return increment_dict[n]
+
+    def _get_label(n, l):  # noqa: E741
+        if n == 20:
+            label = fr"$\ell = {l:.2f},\, n = {n}$"
+        else:
+            label = fr"$ \quad \cdot \quad\quad\,\,\,, n = {n}$"
+        return label
+
+    def _get_color(n, l):  # noqa: E741
+        color_dict = {
+            (20, 0.1): "lightskyblue",
+            (50, 0.1): "steelblue",
+            (100, 0.1): "navy",
+            (20, 0.05): "lightgreen",
+            (50, 0.05): "green",
+            (100, 0.05): "darkgreen",
+            (20, 0.01): "wheat",
+            (50, 0.01): "goldenrod",
+            (100, 0.01): "darkgoldenrod",
+        }
+        return color_dict[(n, l)]
+
+    df_kwargs = df_kwargs.query("order == @order & n_points == @n_points")
+
+    df_kwargs = df_kwargs.set_index(["n_samples", "length_scale"], append=True)
+    df_kwargs = df_kwargs.sort_index(level="length_scale")
+
+    dfs = [df_results[k] for k in df_kwargs.index.get_level_values(0)]
+
+    x_grid = dfs[0].index
+    bar_width = 1.5
+
+    fig, ax = plt.subplots(figsize=(14, 7))
+
+    for i, n, l in df_kwargs.index:
+
+        increment = _compute_increment(n, l, bar_width)
+        label = _get_label(n, l)
+        color = _get_color(n, l)
+
+        counts = df_results[i]["count"]
+        too_small = counts <= threshold
+
+        freq = counts / counts.sum()
+        freq[too_small] = 0
+
+        ax.bar(
+            x_grid + increment,
+            freq,
+            bar_width,
+            label=label,
+            color=color,
+            edgecolor="dimgrey",
+        )
+
+    for poi in df_kwargs.poi.values[0]:
+        ax.axvline(poi, color="tab:red", linewidth=2)
+        ax.annotate(
+            f"{poi}", (poi - 1, 0), (poi - 1, -0.05), fontsize=14, color="tab:red"
+        )
+
+    ax.legend(fontsize=14, loc="upper right")
+    ax.xaxis.set_tick_params(labelsize=14)
+    ax.yaxis.set_tick_params(labelsize=14)
+    ax.set(ylabel="Frequency", xlabel="Period")
+    ax.xaxis.label.set_size(15)
+    ax.yaxis.label.set_size(15)
+
+    return fig, ax
+
+
 palette = {
     "WhiteKernel": "#04539C",
     "BrownianMotion": "#8A9384",

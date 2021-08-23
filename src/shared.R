@@ -3,8 +3,8 @@
 ## method
 
 
-fit_model = function(y, X, family) {
-  model = fdapoi::FUN_PoI_BIC(y, X, family=family)
+fit_model = function(y, X, order, family) {
+  model = fdapoi::estimate_poi_validated(y, X, order=order, family=family)
   return(model)
 }
 
@@ -55,11 +55,21 @@ read_n_sim = function() {
 }
 
 
-clean_beta = function(beta) {
-  splitted = strsplit(beta, ",")
-  cleaned = sapply(splitted, function(x) gsub("[^0-9.-]", "", x))
-  beta = as.numeric(cleaned)
-  return(beta)
+replace_comma = function(str) {
+  s = strsplit(str, "")[[1]]
+  n = length(s)
+  if (s[n - 1] == ",") {
+    s[n - 1] = ""
+  }
+  
+  s = paste0(s, collapse="")
+  return(s)
+}
+
+
+string_to_object = function(str) {
+  object = eval(parse(text=str))
+  return(object)
 }
 
 
@@ -77,18 +87,26 @@ df_row_to_kwargs = function(row) {
 monte_carlo = function(kwargs_df, n_sim) {
   kwargs_list = apply(kwargs_df, 1, df_row_to_kwargs)
   to_parallelize = function(kwargs) monte_carlo_inner(kwargs, n_sim)
-  results = lapply(kwargs_list, to_parallelize)
+  results = pbapply::pblapply(kwargs_list, to_parallelize)
   return(results)
 }
 
 
 monte_carlo_inner = function(kwargs, n_sim) {
+  
+  order = kwargs$order
+  kwargs$order = NULL
+  
+  kwargs$beta = string_to_object(kwargs$beta)
+  kwargs$kernel_kwargs = string_to_object(kwargs$kernel_kwargs)
+    
   locations = c()
   for (k in 1:n_sim) {
     kwargs$seed = k
+    
     data = do.call(simulate_model, kwargs)
     
-    model = fit_model(y=data[[1]], X=data[[2]], family="gaussian")
+    model = fit_model(y=data[[1]], X=data[[2]], order, family="gaussian")
     
     coeff = extract_coefficients(model)
     
