@@ -3,46 +3,38 @@
 
 In this last section I test the aforementioned extension using a simulation study.
 
-The Monte-Carlo design compares an application of Algorithm \ref{algorithm:2} with for
-$d \in \{2, 4\}$. To gain a better understanding on the criticallity of Assumption
+The Monte-Carlo design compares an application of Algorithm \ref{algorithm:2} for $d \in
+\{2, 4\}$. To gain a better understanding on the criticallity of Assumption
 \ref{assumption:1}, and its relaxation, I consider a parametrized functional regressor
-which allows me to choose the level of local variation. Moreover, I vary the number of
-observed data points to analyze sample size effects.
+which allows me to choose the level of local variation.
 
 \paragraph{Setup.}
 
-The data generating process is setup as follows. For a given length scale $\ell \in
-\{0.1, 0.05, 0.01\}$, the functional regressors $X_i$ are simulated as a mean-zero
-Gaussian process with kernel $\sigma(s, t) = \exp\left(-|s - t|^2 / 2 \ell^2\right)$.
-The process is observed for $T=100$ periods on an equidistant grid. I compare how the
-method performs for $S \in \{0, 1, 2\}$ points-of-impact. In the case of $S = 1$ the
-location is given by $\tau_1 = 49$. And in the case of $S = 2$ we have $(\tau_1, \tau_2)
-= (24, 49)$. Given the number of points-of-impact $S$, the coefficient vectors are
-fixed, with: $\beta_0 = (1)$, $\beta_1 = (1, 2)$ and $\beta_2 = (1, 2, -1)$. The
-outcomes are then simulated using
-
+The data generating process is setup as follows. For a given smoothness parameter $\nu
+\in \{0.5, 1.5, 2.5\}$, the functional regressors $X_i$ are simulated as a mean-zero
+Gaussian process with a Matern covariance kernel using length scale parameter $\ell =
+0.1$ and smoothness parameter $\nu$ ---a mathematical description of the Matern kernel
+and its relation to Assumption \ref{assumption:1} is provided in the next paragraph. The
+process is observed for $T=100$ periods on an equidistant grid. I compare how the method
+performs for $S \in \{0, 1, 2\}$ points-of-impact. In the case of $S = 1$ the location
+is given by $\tau_1 = 49$. And in the case of $S = 2$ we have $(\tau_1, \tau_2) = (24,
+49)$.  Given the number of points-of-impact $S$, the coefficient vectors are fixed
+with: $\beta_0 = (1)$, $\beta_1 = (1, 2)$ and $\beta_2 = (1, 2, -1)$. The outcomes are
+then simulated using
 \[
     y_i = \beta_{S, 0} + \sum_{r = 1}^S \beta_{S, r} \, X_i(\tau_r) + \epsilon_i \,,
 \]
-where $\epsilon_i$ is a Gaussian i.i.d. error with $Var(\epsilon_i) = 1/2$. Note that
+where $\epsilon_i$ is an i.i.d. Gaussian error with $Var(\epsilon_i) = 1/2$. Note that
 $\beta_{S, r}$ denotes the $r$-th entry of the $(S+1)$-dimensional coefficient vector,
-in the case of $S$ number of points-of-impact.
+in the case of $S$ number of points-of-impact. The number of observations is fixed to $n
+= 100$. In principle, it would be interesting to see how the results depend on the
+sample size; however, for the sake of clarity I refrain from analyzing this dimension.
 
-In Figure \ref{figure:process_scale_comparison} I illustrate three simulated sample
-paths of the functional regressor, for the three different length scales $\ell$. As is
-clearly visible, for a small length scale the process posseses a lot of local variation,
-while for a larger length scale the process is very smooth with a low level of
-variation.
-
-I perform 100 Monte-Carlo repetitions over the parameter grid spanned by $d = \{2, 4\},
-S = \{0, 1, 2\}, \ell = \{0.1, 0.05, 0.01\}$ and $n = \{20, 50, 100\}$. I choose to
-illustrate the results using frequency plots that capture all estimated points-of-impact
-over the whole repetition. Alternatively, one could have computed, for example, the
-Hausdorff-distance between the true and estimated points-of-impact in each simulation
-run, or reported the average number of estimated points-of-impact. For the sake of
-brevity I stick to only one way of reporting the results. Furthermore, in this study I
-focus only on the estimation of the points-of-impact and not on the subsequent
-estimation of the coefficient parameters.
+Figure \ref{figure:process_scale_comparison} illustrates three simulated sample paths of
+the functional regressor, for the three different smoothness parameters $\nu$. As is
+clearly visible, for small $\nu$ (top row) the process posseses a lot of local
+variation, while for larger $\nu$ (bottom row) the process is much smoother with a low
+level of variation.
 
 
 \begin{figure}
@@ -50,7 +42,8 @@ estimation of the coefficient parameters.
 \centering
 \begin{subfigure}[b]{\textwidth}
 \begin{tcolorbox}[standard jigsaw, opacityback=0, top=0pt, left=0pt, right=0pt, bottom=0pt]
-    \includegraphics[height=0.2\pdfpageheight, width=0.98\textwidth]{../../bld/figures/process_scale0.01}
+    \includegraphics[height=0.2\pdfpageheight,
+    width=0.98\textwidth]{../../bld/figures/process_scale0.5}
 \end{tcolorbox}
 \end{subfigure}
 
@@ -59,7 +52,8 @@ estimation of the coefficient parameters.
 \begin{subfigure}[b]{\textwidth}
 \centering
 \begin{tcolorbox}[standard jigsaw, opacityback=0, top=0pt, left=0pt, right=0pt, bottom=0pt]
-    \includegraphics[height=0.2\pdfpageheight, width=0.98\textwidth]{../../bld/figures/process_scale0.05}
+    \includegraphics[height=0.2\pdfpageheight,
+    width=0.98\textwidth]{../../bld/figures/process_scale1.5}
 \end{tcolorbox}
 \end{subfigure}
 
@@ -68,15 +62,165 @@ estimation of the coefficient parameters.
 \begin{subfigure}[b]{\textwidth}
 \centering
 \begin{tcolorbox}[standard jigsaw, opacityback=0, top=0pt, left=0pt, right=0pt, bottom=0pt]
-    \includegraphics[height=0.2\pdfpageheight, width=0.98\textwidth]{../../bld/figures/process_scale0.1}
+    \includegraphics[height=0.2\pdfpageheight,
+    width=0.98\textwidth]{../../bld/figures/process_scale2.5}
 \end{tcolorbox}
 \end{subfigure}
 
-\caption{Simulated trajectories of a Gaussian process with radial basis function kernel
-and differing length scale parameter; top: $\ell = 0.01$; center: $\ell = 0.05$; bottom:
-$\ell = 0.1$.}
+\caption{Simulated trajectories of a Gaussian process with Matern kernel and differing
+smoothness parameter; top: $\nu = 0.5$; center: $\nu = 1.5$; bottom: $\nu = 2.5$.}
 \label{figure:process_scale_comparison}
 \end{figure}
 
 
+\paragraph{The Kernel.}
+
+For this study I choose kernels from the Matern class. Explicitly, the kernel is defined
+by
+
+\[
+    \sigma(s, t) = \frac{2^{1 - \nu}}{\Gamma(\nu)} \left(
+    \frac{\sqrt{2 \nu} |s - t|}{\ell} \right)^\nu K_{\nu} \left( \frac{\sqrt{2 \nu} |s -
+    t|}{\ell} \right) \,,
+\]
+with length scale parameter $\ell > 0$ and smoothness parameter $\nu > 0$. Note that
+$\Gamma$ denotes the usual gamma function, while $K_{\nu}$ is a modified Bessel
+function. For a more detailed reference on the components of the Matern kernel, as well
+as a reference for the following properties, see \cite{Rasmussen2006}. The above
+expression is hard to work with. Luckily, for the special cases $\nu \in \{0.5, 1.5,
+2.5\}$ it simplifies dramatically, as is shown in Table \ref{table:matern_kernel}, where
+I define $z = |s - t|$.
+
+\smallskip
+
+\begin{remark}
+I must note that neither the Matern kernel with $\nu = 1.5$ nor with $\nu = 2.5$ satisfy
+Assumption \ref{assumption:1}. This is because $\inf \{ c(t) : t \in [0, 1] \} = 0$ in
+these cases. That means that the covariance at the diagonal does drop off fast enough.
+Furthermore, an extension of the assumption to the case $\kappa < 4$ is not of help in
+this case either, as the partial derivative $\partial \omega / \partial z$ is not
+defined at $z = 0$ for any $\kappa > 1$. To analyze the extended method properly one
+would need to use a kernel satisfying an extended version of Assumption
+\ref{assumption:1} with $\kappa \in [2, 4)$. It proved difficult to find a reasonable
+kernel for this case. As the sample paths induced by the Matern kernel with high $\nu$
+are fairly standard, the results should, nevertheless, still tell us something of
+relevance about the underlying method.
+\end{remark}
+
+
+\begin{table}
+    \renewcommand{\arraystretch}{2}
+    \centering
+    \begin{tabular}{c|c}
+        $\nu$ & $\sigma_{\text{Matern}}(z)$ \\ \hline
+        $1/2$ & $\exp \left( - z / \ell \right)$\\
+        $3/2$ & $\left(1 + \sqrt{3} z / \ell \right)\exp \left( - \sqrt{3}z / \ell \right)$\\
+        $5/2$ & $\left(1 + \sqrt{5} z / \ell + 5z^2 / (3\ell^2) \right)\exp \left( -
+        \sqrt{5}z / \ell \right)$
+    \end{tabular}
+    \caption{Simple expressions of the Matern kernel for special cases of the smoothness
+    parameter $\nu$; see \cite{Rasmussen2006}. Here $z = |s - t|$.}
+    \label{table:matern_kernel}
+\end{table}
+
+
+
+\paragraph{Monte-Carlo Design.}
+
+I perform 500 Monte-Carlo repetitions over the parameter grid spanned by $d \in \{2, 4\},
+S \in \{0, 1, 2\}$ and $\nu \in \{0.5, 1.5, 2.5\}$. The results are visualized using
+frequency plots that summarize the estimated points-of-impact over \emph{all}
+Monte-Carlo repetitions. A detailed explaination follows in the next paragraph.
+Alternatively, one could have computed e.g. the Hausdorff-distance between the true and
+estimated points-of-impact in each simulation run, or reported the average number of
+estimated points-of-impact. For the sake of brevity I stick to one way of reporting the
+results. Furthermore, in this study I focus only on the estimation of the
+points-of-impact and not on the subsequent estimation of the coefficient parameters.
+
+
 \paragraph{Results.}
+
+Before we consider the actual results, let us think about what we may expect. The slope
+parameter corresponding to the second point-of-impact is significantly smaller than the
+one corresponding to the first point-of-impact. Hence, in the case of $S = 2$ we should
+expect that the method finds the first point-of-impact at least as often. We also expect
+that the precision of the method decreases in $\nu$, i.e. the smoother the functional
+regressor the less precise the estimates. What we hope to see is that for the case $d =
+4$, i.e. when using the fourth-order finite difference, the performance of the method
+increases in the smoother $\nu = 2.5$ case.
+
+Figure \ref{figure:monte_carlo_results_order2} summarizes the results when applying the
+standard algorithm ($d = 2$). The top row shows the case of no points-of-impact ($S =
+0$), the center row depicts the case of one point-of-impact ($S = 1$) and the bottom row
+exhibits the case of two points-of-impact ($S = 2$). The results are consistent with our
+expectations. The plot can be understood as follows: In the middle subfigure we see that
+for the $\nu = 0.5$ case the true location ($49$) makes up more than $50\%$ of all the
+estimated locations.
+
+Even though Assumption \ref{assumption:1} is not satisfied for $\nu \in \{1.5, 2.5\}$,
+the estimated locations form a cluster around the true points. This is in line with the
+argumentation of \cite{Kneip2020}, in that the smooth functional regressors make it
+harder for the method to distinguish between the influence of neighboring points.
+
+Figure \ref{figure:monte_carlo_results_order4} depicts the case when employing the
+fourth-order finite difference ($d = 4$). The image is very similar to the above figure.
+However, a main difference is that the precision is lower than in the $d=2$ case.
+Especially in the smooth cases the method performs worse, as there are no sharp
+peaks and the estimated points are spread over a very large area.
+
+The observation from Figure \ref{figure:monte_carlo_results_order4} may be due to
+several reasons. First, as stated in the aformentioned remark, the kernel used to
+simulate the functional regressors does not satisfy the extended Assumption
+\ref{assumption:1}. The method remains to be tested with such a kernel. A
+counter-argument would be that in the coarsely discretized case the regressors will
+almost certainly look similar to the ones I am using here. Second, the fourth-order
+finite difference formula may not be precise enough. One could think about modifying
+this measure slightly to get a more precise criterion function.
+
+\begin{figure}
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../../bld/figures/monte_carlo/barplot_2_0}
+\end{subfigure}
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../../bld/figures/monte_carlo/barplot_2_1}
+\end{subfigure}
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../../bld/figures/monte_carlo/barplot_2_2}
+\end{subfigure}
+
+\caption{Results from 500 Monte-Carlo repetitions. Length scales are differentiated
+using color; orange: $\nu = 0.5$; green: $\nu = 1.5$; blue: $\nu = 2.5$. In this
+Monte-Carlo run Algorithm \ref{algorithm:2} was used with order $d = 2$. True
+points-of-impact are depicted by the red vertical line.}
+\label{figure:monte_carlo_results_order2}
+\end{figure}
+
+\begin{figure}
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../../bld/figures/monte_carlo/barplot_4_0.pdf}
+\end{subfigure}
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../../bld/figures/monte_carlo/barplot_4_1.pdf}
+\end{subfigure}
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=\textwidth]{../../bld/figures/monte_carlo/barplot_4_2.pdf}
+\end{subfigure}
+
+\caption{Results from 500 Monte-Carlo repetitions. Length scales are differentiated
+using color; orange: $\nu = 0.5$; green: $\nu = 1.5$; blue: $\nu = 2.5$. In this
+Monte-Carlo run Algorithm \ref{algorithm:2} was used with order $d = 4$. True
+points-of-impact are depicted by the red vertical line.}
+\label{figure:monte_carlo_results_order4}
+\end{figure}

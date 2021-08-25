@@ -38,11 +38,7 @@ def clean_df_kwargs(df_kwargs):
         )
     )
     df_kwargs = df_kwargs.assign(
-        **{
-            "length_scale": df_kwargs.kernel_kwargs.str.extract(r"(\d+\.?\d*)")[
-                0
-            ].astype(float)
-        }
+        **{"nu": df_kwargs.kernel_kwargs.str.extract(r"(\d+\.?\d*)")[0].astype(float)}
     )
     df_kwargs = df_kwargs.drop(["kernel_kwargs", "kernel", "beta"], axis=1)
     return df_kwargs

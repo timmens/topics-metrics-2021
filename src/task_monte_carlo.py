@@ -7,7 +7,7 @@ import yaml
 
 from src.config import BLD
 from src.config import SRC
-from src.plotting import create_bar_plot
+from src.plotting import create_barplot
 from src.shared import clean_df_kwargs
 from src.shared import clean_df_result
 from src.shared import config_to_kwargs_df
@@ -40,7 +40,7 @@ n_points_list = df["n_points"].unique()
 
 figure_parametrize = [
     (
-        BLD / "figures" / "monte_carlo" / f"barplot_{order}_{n_points}.png",
+        BLD / "figures" / "monte_carlo" / f"barplot_{order}_{n_points}.pdf",
         order,
         n_points,
     )
@@ -48,16 +48,18 @@ figure_parametrize = [
 ]
 
 
-@pytask.mark.depends_on([BLD / "monte_carlo" / "kwargs.csv"] + produces)
+@pytask.mark.depends_on(
+    [SRC / "plotting.py", BLD / "monte_carlo" / "kwargs.csv"] + produces
+)
 @pytask.mark.parametrize("produces, order, n_points", figure_parametrize)
 def task_plot_monte_carlo_results(depends_on, produces, order, n_points):  # noqa: D103
     depends_on = list(depends_on.values())
 
-    df_kwargs = pd.read_csv(depends_on[0])
-    df_result = [pd.read_csv(f) for f in depends_on[1:]]
+    df_kwargs = pd.read_csv(depends_on[1])
+    df_result = [pd.read_csv(f) for f in depends_on[2:]]
 
     df_kwargs = clean_df_kwargs(df_kwargs)
     df_result = clean_df_result(df_result)
 
-    fig, ax = create_bar_plot(order, n_points, df_kwargs, df_result)
+    fig, ax = create_barplot(order, n_points, df_kwargs, df_result, threshold=1)
     fig.savefig(produces, bbox_inches="tight")

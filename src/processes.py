@@ -41,17 +41,30 @@ def get_kernel(kernel, kernel_kwargs=None):
     kernel_kwargs = _add_defaults_to_kwargs(kernel, kernel_kwargs)
     if kernel == "BrownianMotion":
 
-        def _kernel(X):  # noqa: N803
-            x, y = np.meshgrid(X, X)
-            return kernel_kwargs["sigma"] ** 2 * np.minimum(x, y)
+        def _kernel(X, Y=None):  # noqa: N803
+            sigma = kernel_kwargs["sigma"]
+            if Y is None:
+                x, y = np.meshgrid(X, X)
+            else:
+                x = X.reshape(-1, 1)
+                y = np.atleast_2d(Y)
+                if len(y) > 1:
+                    raise ValueError("Second argument has to be a scalar.")
+            return sigma ** 2 * np.minimum(x, y).flatten()
 
     elif kernel == "SelfSimilar":
 
-        def _kernel(X):  # noqa: N803
+        def _kernel(X, Y=None):  # noqa: N803
             sigma = kernel_kwargs["sigma"]
             kappa = kernel_kwargs["kappa"]
-            x, y = np.meshgrid(X, X)
-            return sigma * (x ** kappa + y ** kappa - np.abs(x - y) ** kappa)
+            if Y is None:
+                x, y = np.meshgrid(X, X)
+            else:
+                x = X.reshape(-1, 1)
+                y = np.atleast_2d(Y)
+                if len(y) > 1:
+                    raise ValueError("Second argument has to be a scalar.")
+            return sigma * (x ** kappa + y ** kappa - np.abs(x - y) ** kappa).flatten()
 
     else:
         kernel = getattr(sklearn_kernels, kernel)(**kernel_kwargs)

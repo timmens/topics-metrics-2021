@@ -1,12 +1,12 @@
 \section{Introduction}
 
-In this essay I build on the paper "Superconsistent estimation of points of impact in
-non-parametric regression with functional predictors" by \cite{Kneip2020}. The paper
+In this essay I build on the paper \emph{"Superconsistent estimation of points of impact
+in non-parametric regression with functional predictors"} by \cite{Kneip2020}. The paper
 considers the classical problem of scalar outcome prediction in the case of functional
 regressors. The main variation is the structural assumption that there are certain time
 points for which the outcome depends \emph{only} on the functional regressors observed
 at these time points. These points are called \emph{points-of-impact}. The number and
-location of these points-of-impact is assumed to be unkown and is estimated from the
+location of the points-of-impact is assumed to be unkown and must be estimated from the
 data directly. A similar problem has been examined in \cite{Kneip2016}, where the model
 presumes a linear influence of the functional regressors at the points-of-impact plus a
 common effect of the whole trajectory. In \cite{Kneip2020} the effect of the whole
@@ -26,8 +26,8 @@ implements the new features is hosted on GitHub
 (\url{https://github.com/timmens/fdapoi}) and builds on the original package
 corresponding to the paper; see \url{https://github.com/lidom/fdapoi}.
 
-The rest of this essay is structured as follows: In section \ref{section:review} I
+The rest of this essay is structured as follows: In Section \ref{section:review} I
 present the mathematical model and review the main assumptions and theorems from the
 paper. Section \ref{section:extension} considers the aforementioned extension from a
-theoretical and computational viewpoint. And at last, in section
+theoretical and computational viewpoint. And at last, in Section
 \ref{section:monte_carlo} I present the Monte-Carlo study.

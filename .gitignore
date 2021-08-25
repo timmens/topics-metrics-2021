@@ -30,6 +30,7 @@ fdapoi/
 *.toc
 *.sty
 *.synctex(busy)
+*.bak
 
 src/__pycache__/
 

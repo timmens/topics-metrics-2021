@@ -21,57 +21,62 @@ def plot_process(process):
     return fig, ax
 
 
-def create_bar_plot(order, n_points, df_kwargs, df_results, threshold=1):
-    """Create barplot for manuscript."""
+def create_barplot(order, n_points, df_kwargs, df_result, threshold=0):
+    """Create barplot."""
 
-    def _compute_increment(n, l, width):  # noqa: E741
-        increment_dict = {20: -width / 2, 50: 0, 100: width / 2}
-        return increment_dict[n]
+    def _compute_increment(l, width):  # noqa: E741
+        increment_dict = {0.5: -width / 2, 1.5: 0, 2.5: width / 2}
+        return increment_dict[l]
 
-    def _get_label(n, l):  # noqa: E741
-        if n == 20:
-            label = fr"$\ell = {l:.2f},\, n = {n}$"
-        else:
-            label = fr"$ \quad \cdot \quad\quad\,\,\,, n = {n}$"
+    def _get_label(l):  # noqa: E741
+        label = fr"$\nu = {l:.1f}$"
         return label
 
-    def _get_color(n, l):  # noqa: E741
+    def _get_color(l):  # noqa: E741
         color_dict = {
-            (20, 0.1): "lightskyblue",
-            (50, 0.1): "steelblue",
-            (100, 0.1): "navy",
-            (20, 0.05): "lightgreen",
-            (50, 0.05): "green",
-            (100, 0.05): "darkgreen",
-            (20, 0.01): "wheat",
-            (50, 0.01): "goldenrod",
-            (100, 0.01): "darkgoldenrod",
+            0.5: "tab:blue",
+            1.5: "tab:green",
+            2.5: "goldenrod",
         }
-        return color_dict[(n, l)]
+        return color_dict[l]
 
     df_kwargs = df_kwargs.query("order == @order & n_points == @n_points")
 
-    df_kwargs = df_kwargs.set_index(["n_samples", "length_scale"], append=True)
-    df_kwargs = df_kwargs.sort_index(level="length_scale")
+    df_kwargs = df_kwargs.set_index(["nu"], append=True)
+    df_kwargs = df_kwargs.sort_index(level="nu")
 
-    dfs = [df_results[k] for k in df_kwargs.index.get_level_values(0)]
+    dfs = [df_result[k] for k in df_kwargs.index.get_level_values(0)]
 
     x_grid = dfs[0].index
-    bar_width = 1.5
+    bar_width = 2
 
-    fig, ax = plt.subplots(figsize=(14, 7))
+    plt.rc("font", **{"family": "serif", "serif": ["Times"]})
+    plt.rc("text", usetex=True)
 
-    for i, n, l in df_kwargs.index:
+    fig, ax = plt.subplots()
 
-        increment = _compute_increment(n, l, bar_width)
-        label = _get_label(n, l)
-        color = _get_color(n, l)
+    fig.set_size_inches(6.3, 2.5, forward=True)
 
-        counts = df_results[i]["count"]
-        too_small = counts <= threshold
+    ylimmax = 0.3
+    if n_points == 1:
+        ylimmax = 0.7
+    elif n_points == 2:
+        ylimmax = 0.4
+    ax.set_ylim((0, ylimmax))
+
+    for k, l in df_kwargs.index:
+
+        increment = _compute_increment(l, bar_width)
+        label = _get_label(l)
+        color = _get_color(l)
+
+        counts = df_result[k]["count"]
 
         freq = counts / counts.sum()
-        freq[too_small] = 0
+
+        if threshold > 0:
+            too_small = counts <= threshold
+            freq[too_small] = 0
 
         ax.bar(
             x_grid + increment,
@@ -79,21 +84,28 @@ def create_bar_plot(order, n_points, df_kwargs, df_results, threshold=1):
             bar_width,
             label=label,
             color=color,
-            edgecolor="dimgrey",
+            alpha=0.7,
+            zorder=2,
         )
+
+    _, ylim_max = ax.get_ylim()
 
     for poi in df_kwargs.poi.values[0]:
-        ax.axvline(poi, color="tab:red", linewidth=2)
+        ax.axvline(poi, color="tab:red", linewidth=1.5, zorder=1)
         ax.annotate(
-            f"{poi}", (poi - 1, 0), (poi - 1, -0.05), fontsize=14, color="tab:red"
+            f"{poi}",
+            (poi - 1.5, 0),
+            (poi - 1.5, -0.11 * ylim_max),
+            fontsize=12,
+            color="tab:red",
         )
 
-    ax.legend(fontsize=14, loc="upper right")
-    ax.xaxis.set_tick_params(labelsize=14)
-    ax.yaxis.set_tick_params(labelsize=14)
+    ax.legend(fontsize=12, loc="upper right", frameon=False)
+    ax.xaxis.set_tick_params(labelsize=12)
+    ax.yaxis.set_tick_params(labelsize=12)
     ax.set(ylabel="Frequency", xlabel="Period")
-    ax.xaxis.label.set_size(15)
-    ax.yaxis.label.set_size(15)
+    ax.xaxis.label.set_size(12)
+    ax.yaxis.label.set_size(12)
 
     return fig, ax
 

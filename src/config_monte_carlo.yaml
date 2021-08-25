@@ -2,11 +2,9 @@ order:
     - 2
     - 4
 
-n_sim: 2
+n_sim: 100
 
 n_samples:
-    - 20
-    - 50
     - 100
 
 n_periods: 
@@ -23,9 +21,9 @@ beta:
     - [1, 2, -1]
     
 kernel:
-    - "RBF"
+    - "Matern"
 
 kernel_kwargs:
-    - "list(length_scale=0.1)"
-    - "list(length_scale=0.05)"
-    - "list(length_scale=0.01)"
+    - "list(nu=0.5)"
+    - "list(nu=1.5)"
+    - "list(nu=2.5)"
