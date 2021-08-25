@@ -17,12 +17,12 @@ with $\epsilon_i$ representing an error term satisfying $\expectation{\epsilon_i
 X_i(t)} = 0$ for all $t \in [a, b]$. The points-of-impact are denoted by $\tau_1, \dots,
 \tau_S$; where the specific locations $\tau_s \in [a, b]$ and the number of points $S
 \in \mathbb{N}_0$ are both assumed to be unknown a priori. In the same way the link
-function $g$ is taken as unknown as well. The paper considers centred random functions
+function $g$ is taken as unknown as well. The paper considers centered random functions
 $X_i$.
 
 Given this very general framework, one may reasonably question how it is possible to
 estimate the locations and number of points-of-impact, while allowing for a fully
-non-parametrics link function $g$. The upcoming repetitions of the main assumptions and
+non-parametric link function $g$. The upcoming repetitions of the main assumptions and
 theorems in \cite{Kneip2020} illustrate that restrictions on $X_i$ through the
 covariance kernel suffice for the identification and estimation. Let us therefore first
 consider the covariance kernel of the functional regressor, which I denote by $\sigma(t,
@@ -111,7 +111,7 @@ the second-order finite difference is expected to be larger at the points-of-imp
 at the other time points.
 
 
-With this new interpreation in mind we may ask whether we can exploite higher-order
+With this new interpretation in mind we may ask whether we can exploit higher-order
 finite differences to relax the assumption on the covariance kernel? The answer is
 affirmative and the details will be the concern of Section \ref{section:extension}.
 
@@ -121,7 +121,7 @@ more general version supplied in the next section. For the estimation stage we s
 that the functional regressors $X_i$ are observed at $p$ equidistant points $t_1, \dots,
 t_p$ with $t_1 = a, t_p = b$. Since the functions $f_{XY}$ and $f_{ZY}$ are simple
 functions of expectations, they can be easily estimated by the standard sample
-counterpart, which I denote by $\hat{f}_{XY}$ and $\hat{f}_{ZY}$. The orignal algorithm
+counterpart, which I denote by $\hat{f}_{XY}$ and $\hat{f}_{ZY}$. The original algorithm
 is listed as Algorithm \ref{algorithm:1}.
 
 \begin{tcolorbox}[standard jigsaw, opacityback=0]

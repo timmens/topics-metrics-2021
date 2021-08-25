@@ -4,8 +4,8 @@
 In this last section I test the aforementioned extension using a simulation study.
 
 The Monte-Carlo design compares an application of Algorithm \ref{algorithm:2} for $d \in
-\{2, 4\}$. To gain a better understanding on the criticallity of Assumption
-\ref{assumption:1}, and its relaxation, I consider a parametrized functional regressor
+\{2, 4\}$. To gain a better understanding on the criticality of Assumption
+\ref{assumption:1}, and its relaxation, I consider a parameterized functional regressor
 which allows me to choose the level of local variation.
 
 \paragraph{Setup.}
@@ -32,7 +32,7 @@ sample size; however, for the sake of clarity I refrain from analyzing this dime
 
 Figure \ref{figure:process_scale_comparison} illustrates three simulated sample paths of
 the functional regressor, for the three different smoothness parameters $\nu$. As is
-clearly visible, for small $\nu$ (top row) the process posseses a lot of local
+clearly visible, for small $\nu$ (top row) the process possesses a lot of local
 variation, while for larger $\nu$ (bottom row) the process is much smoother with a low
 level of variation.
 
@@ -130,7 +130,7 @@ relevance about the underlying method.
 I perform 500 Monte-Carlo repetitions over the parameter grid spanned by $d \in \{2, 4\},
 S \in \{0, 1, 2\}$ and $\nu \in \{0.5, 1.5, 2.5\}$. The results are visualized using
 frequency plots that summarize the estimated points-of-impact over \emph{all}
-Monte-Carlo repetitions. A detailed explaination follows in the next paragraph.
+Monte-Carlo repetitions. A detailed explanation follows in the next paragraph.
 Alternatively, one could have computed e.g. the Hausdorff-distance between the true and
 estimated points-of-impact in each simulation run, or reported the average number of
 estimated points-of-impact. For the sake of brevity I stick to one way of reporting the
@@ -153,7 +153,7 @@ Figure \ref{figure:monte_carlo_results_order2} summarizes the results when apply
 standard algorithm ($d = 2$). The top row shows the case of no points-of-impact ($S =
 0$), the center row depicts the case of one point-of-impact ($S = 1$) and the bottom row
 exhibits the case of two points-of-impact ($S = 2$). The results are consistent with our
-expectations. The plot can be understood as follows: In the middle subfigure we see that
+expectations. The plot can be understood as follows: In the middle sub-figure we see that
 for the $\nu = 0.5$ case the true location ($49$) makes up more than $50\%$ of all the
 estimated locations.
 
@@ -169,7 +169,7 @@ Especially in the smooth cases the method performs worse, as there are no sharp
 peaks and the estimated points are spread over a very large area.
 
 The observation from Figure \ref{figure:monte_carlo_results_order4} may be due to
-several reasons. First, as stated in the aformentioned remark, the kernel used to
+several reasons. First, as stated in the aforementioned remark, the kernel used to
 simulate the functional regressors does not satisfy the extended Assumption
 \ref{assumption:1}. The method remains to be tested with such a kernel. A
 counter-argument would be that in the coarsely discretized case the regressors will
