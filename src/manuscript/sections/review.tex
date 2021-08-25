@@ -20,13 +20,13 @@ X_i(t)} = 0$ for all $t \in [a, b]$. The points-of-impact are denoted by $\tau_1
 function $g$ is taken as unknown as well. The paper considers centered random functions
 $X_i$.
 
-Given this very general framework, one may reasonably question how it is possible to
-estimate the locations and number of points-of-impact, while allowing for a fully
-non-parametric link function $g$. The upcoming repetitions of the main assumptions and
-theorems in \cite{Kneip2020} illustrate that restrictions on $X_i$ through the
-covariance kernel suffice for the identification and estimation. Let us therefore first
-consider the covariance kernel of the functional regressor, which I denote by $\sigma(t,
-s) = \expectation{X_i(t) X_i(s)}$.
+Given this general framework, one may reasonably question how it is possible to estimate
+the locations and number of points-of-impact, while allowing for a fully non-parametric
+link function $g$. The upcoming repetitions of the main assumptions and theorems in
+\cite{Kneip2020} illustrate that restrictions on $X_i$ through the covariance kernel
+suffice for the identification and estimation. Let us therefore first consider the
+covariance kernel of the functional regressor, which I denote by $\sigma(t, s) =
+\expectation{X_i(t) X_i(s)}$.
 
 
 \begin{assumption}
@@ -79,7 +79,7 @@ $\forall t \in [a, b]$
 \end{theorem}
 
 
-In light of Assumption \ref{assumption:1} we know that the kernel $\sigma$ is \emph{not}
+In view of Assumption \ref{assumption:1} we know that the kernel $\sigma$ is \emph{not}
 two-times differentiable at the diagonal. In that case $f_{XY}$ will not be two-times
 differentiable at the points-of-impact $\tau_1, \dots, \tau_S$. As it turns out, this
 will be enough to ensure identification. To differentiate between any point ($t \in [a,

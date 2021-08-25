@@ -12,7 +12,7 @@ necessary for identification; as also discussed in \cite{Kneip2016}. However, in
 of Theorem \ref{theorem:1} this is not necessary. As discussed in the previous section,
 a sensible criterion function inherits the properties of the covariance kernel at the
 diagonal to allow for the differentiation between regular time points and
-points-of-impact.  Before, under Assumption \ref{assumption:1} we presumed that the
+points-of-impact. Before, under Assumption \ref{assumption:1} we presumed that the
 kernel is twice continuously differentiable off the diagonal and not twice continuously
 differentiable on the diagonal. But this can be relaxed to the rather general case where
 the kernel is less smooth on the diagonal than off the diagonal. For example, we may
@@ -26,7 +26,7 @@ Assumption \ref{assumption:1} with $\kappa < d$. For each $d$ the natural extens
 the criterion function then involves the $d$-th order finite difference. Again, let
 $FD(h, \delta, k, x)$ denote the $k$-th order finite difference of function $h$ with
 step size $\delta$ at $x$. Algorithm \ref{algorithm:1} can then be generalized by
-updating lines 3 and 4.  Since higher-order finite difference computations need multiple
+updating lines 3 and 4. Since higher-order finite difference computations need multiple
 steps in the argument, the grid spanned in line 3 has to be adjusted. Most importantly
 the second-order finite difference formula from line 4 is exchanged for the general
 case. The updated version is listed as Algorithm \ref{algorithm:2}. This version of the

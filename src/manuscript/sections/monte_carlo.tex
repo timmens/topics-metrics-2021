@@ -18,9 +18,9 @@ and its relation to Assumption \ref{assumption:1} is provided in the next paragr
 process is observed for $T=100$ periods on an equidistant grid. I compare how the method
 performs for $S \in \{0, 1, 2\}$ points-of-impact. In the case of $S = 1$ the location
 is given by $\tau_1 = 49$. And in the case of $S = 2$ we have $(\tau_1, \tau_2) = (24,
-49)$.  Given the number of points-of-impact $S$, the coefficient vectors are fixed
-with: $\beta_0 = (1)$, $\beta_1 = (1, 2)$ and $\beta_2 = (1, 2, -1)$. The outcomes are
-then simulated using
+49)$. Given the number of points-of-impact $S$, the coefficient vectors are fixed with:
+$\beta_0 = (1)$, $\beta_1 = (1, 2)$ and $\beta_2 = (1, 2, -1)$. The outcomes are then
+simulated using
 \[
     y_i = \beta_{S, 0} + \sum_{r = 1}^S \beta_{S, r} \, X_i(\tau_r) + \epsilon_i \,,
 \]
@@ -154,7 +154,7 @@ standard algorithm ($d = 2$). The top row shows the case of no points-of-impact 
 0$), the center row depicts the case of one point-of-impact ($S = 1$) and the bottom row
 exhibits the case of two points-of-impact ($S = 2$). The results are consistent with our
 expectations. The plot can be understood as follows: In the middle sub-figure we see that
-for the $\nu = 0.5$ case the true location ($49$) makes up more than $50\%$ of all the
+for the $\nu = 0.5$ case the true location ($49$) makes up more than $50\%$ of the
 estimated locations.
 
 Even though Assumption \ref{assumption:1} is not satisfied for $\nu \in \{1.5, 2.5\}$,
@@ -163,10 +163,10 @@ argumentation of \cite{Kneip2020}, in that the smooth functional regressors make
 harder for the method to distinguish between the influence of neighboring points.
 
 Figure \ref{figure:monte_carlo_results_order4} depicts the case when employing the
-fourth-order finite difference ($d = 4$). The image is very similar to the above figure.
+fourth-order finite difference ($d = 4$). The image is similar to the above figure.
 However, a main difference is that the precision is lower than in the $d=2$ case.
-Especially in the smooth cases the method performs worse, as there are no sharp
-peaks and the estimated points are spread over a very large area.
+Especially in the smooth cases the method performs worse, as there are no sharp peaks
+and the estimated points are spread over a large area.
 
 The observation from Figure \ref{figure:monte_carlo_results_order4} may be due to
 several reasons. First, as stated in the aforementioned remark, the kernel used to
