@@ -2,7 +2,7 @@ order:
     - 2
     - 4
 
-n_sim: 100
+n_sim: 500
 
 n_samples:
     - 100
