@@ -7,6 +7,9 @@
 > the class *topics in econometrics and statistics*.
 
 
+----
+
+
 #### PDF Files
 
 To view the final PDF documents simply click the button:
