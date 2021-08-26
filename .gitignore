@@ -14,7 +14,9 @@ fdapoi/
 
 .ipynb_checkpoints/
 
-*.pdf
+bld/**/*.pdf
+src/**/*.pdf
+
 *.aux
 *.bbl
 *.bcf
