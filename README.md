@@ -6,15 +6,25 @@
 > This repository contains material (slides, notes, codes) created for the project in
 > the class *topics in econometrics and statistics*.
 
-#### Presentation
+
+#### PDF Files
+
+To view the final documents simply click the button:
 
 
-###### Latex Files
+| <!-- -->  | <!-- --> |
+|-----------|----------|
+| Essay | <a href="https://nbviewer.jupyter.org/github/timmens/topics-metrics-2021/blob/main/manuscript.pdf"  target="_parent"> <img align="center"  src="https://nbviewer.jupyter.org/github/timmens/topics-metrics-2021/blob/main/presentation.pdf" width="109" height="20"></a> |
+| Presentation | <a href="https://nbviewer.jupyter.org/github/timmens/topics-metrics-2021/blob/main/presentation.pdf"  target="_parent"> <img align="center"  src="https://nbviewer.jupyter.org/github/timmens/topics-metrics-2021/blob/main/presentation.pdf" width="109" height="20"></a> |
 
-Latex files are compiled using the build system pytask (see chapter *Building the Project* for
-details). This is done as many figures depend on all sorts of prior computations. This
-dependency structure is taken care of by the build system. Tex-files are found in
-``src/presentation``.
+<a href="https://nbviewer.jupyter.org/github/timmens/topics-metrics-2021/blob/main/manuscript.pdf">
+    <img align="center" src="https://nbviewer.jupyter.org/github/timmens/topics-metrics-2021/blob/main/presentation.pdf">
+</a>
+
+----
+
+
+#### Visualizations
 
 ###### Gaussian Process Visualization
 
