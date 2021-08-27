@@ -7,15 +7,17 @@
 > the class *topics in econometrics and statistics*.
 
 
+----
+
+
 #### PDF Files
 
 To view the final PDF documents simply click the button:
 
 
-| <!-- -->  | <!-- --> |
-|-----------|----------|
-| Essay | <a href="https://nbviewer.jupyter.org/github/timmens/topics-metrics-2021/blob/main/manuscript.pdf"  target="_parent"><img align="center" src="https://www.iconpacks.net/icons/2/free-pdf-file-icon-2614-thumb.png" height=50></a> |
-| Presentation | <a href="https://nbviewer.jupyter.org/github/timmens/topics-metrics-2021/blob/main/presentation.pdf"  target="_parent"><img align="center" src="https://www.iconpacks.net/icons/2/free-pdf-file-icon-2614-thumb.png" height=50></a> |
+| <!-- -->  | <!-- --> | <!-- --> | <!-- --> | <!-- --> |
+|-----------|----------|----------|----------|----------|
+| Essay | <a href="https://nbviewer.jupyter.org/github/timmens/topics-metrics-2021/blob/main/manuscript.pdf"  target="_parent"><img align="center" src="https://www.iconpacks.net/icons/2/free-pdf-file-icon-2614-thumb.png" height=50></a> | | Presentation | <a href="https://nbviewer.jupyter.org/github/timmens/topics-metrics-2021/blob/main/presentation.pdf"  target="_parent"><img align="center" src="https://www.iconpacks.net/icons/2/free-pdf-file-icon-2614-thumb.png" height=50></a> |
 
 
 ----
