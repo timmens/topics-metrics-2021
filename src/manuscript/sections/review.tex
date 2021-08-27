@@ -7,8 +7,8 @@ the assumptions and theorems that are needed to understand the extension in Sect
 
 We assume there is an independent and identically distributed random sample $(X_i, y_i)$
 for $i=1,\dots,n$ individuals. The functional regressors $X_i = \{ X_i(t) : t \in [a, b]
-\}$ are understood to be a square-integrable process and $y_i$ to be a real-valued
-random variable. The relationship between regressors and outcome is modeled as
+\}$ are understood to be a square-integrable process and $y_i$ is a real-valued random
+variable. The relationship between regressors and outcome is modeled as
 
 \[
     y_i = g \left( X_i(\tau_1), \dots, X_i(\tau_S) \right) + \epsilon_i \,,
@@ -17,8 +17,8 @@ with $\epsilon_i$ representing an error term satisfying $\expectation{\epsilon_i
 X_i(t)} = 0$ for all $t \in [a, b]$. The points-of-impact are denoted by $\tau_1, \dots,
 \tau_S$; where the specific locations $\tau_s \in [a, b]$ and the number of points $S
 \in \mathbb{N}_0$ are both assumed to be unknown a priori. In the same way the link
-function $g$ is taken as unknown as well. The paper considers centered random functions
-$X_i$.
+function $g$ is taken to be unknown as well. The paper considers centered random
+functions $X_i$.
 
 Given this general framework, one may reasonably question how it is possible to estimate
 the locations and number of points-of-impact, while allowing for a fully non-parametric
@@ -105,7 +105,7 @@ where $FD(h, \delta, k, x)$ denotes the $k$-th order central finite difference o
 function $h$ with step length $\delta$, evaluated at $x$. Henceforth I will just write
 \emph{finite difference} and drop the \emph{central}. Since the criterion function is in
 absolute value, using $f_{ZY}$ is proportional to using a second-order finite difference
-of $f_{XY}$. This should make sense, as Assumption \ref{assumption:1} implied that
+of $f_{XY}$. This should make sense, as Assumption \ref{assumption:1} implies that
 $f_{XY}$ should not be two-times differentiable at the points-of-impact. If that is the
 case then the second-order finite difference is expected to be larger at the
 points-of-impact than at the other time points.
@@ -123,6 +123,9 @@ t_p$ with $a \leq t_1$ and $t_p \leq b$. Since the functions $f_{XY}$ and $f_{ZY
 functions of expectations, they can be easily estimated by the standard sample
 counterpart, which I denote by $\hat{f}_{XY}$ and $\hat{f}_{ZY}$. The original algorithm
 is listed as Algorithm \ref{algorithm:1}.
+
+The main identification and consistency results are found in Theorem 2 in
+\cite{Kneip2020}.
 
 \begin{tcolorbox}[standard jigsaw, opacityback=0]
 

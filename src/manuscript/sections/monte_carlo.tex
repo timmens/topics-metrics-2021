@@ -94,17 +94,17 @@ I define $z = |s - t|$.
 \smallskip
 
 \begin{remark}
-I must note that neither the Matern kernel with $\nu = 1.5$ nor with $\nu = 2.5$ satisfy
-Assumption \ref{assumption:1}. This is because $\inf \{ c(t) : t \in [0, 1] \} = 0$ in
-these cases. That means that the covariance at the diagonal does drop off fast enough.
-Furthermore, an extension of the assumption to the case $\kappa < 4$ is not of help in
-this case either, as the partial derivative $\partial \omega / \partial z$ is not
-defined at $z = 0$ for any $\kappa > 1$. To analyze the extended method properly one
-would need to use a kernel satisfying an extended version of Assumption
-\ref{assumption:1} with $\kappa \in [2, 4)$. It proved difficult to find a reasonable
-kernel for this case. As the sample paths induced by the Matern kernel with high $\nu$
-are fairly standard, the results should, nevertheless, still tell us something of
-relevance about the underlying method.
+I must note that, for the case of $\kappa < 2$, neither the Matern kernel with $\nu =
+1.5$ nor with $\nu = 2.5$ satisfy Assumption \ref{assumption:1}. This is because $\inf
+\{ c(t) : t \in [0, 1] \} = 0$ in these cases. That means that the covariance at the
+diagonal does not drop off fast enough.  Furthermore, an extension of the assumption to
+the case $\kappa < 4$ is not of help either, as the partial derivative $\partial \omega
+/ \partial z$ is not defined at $z = 0$ for any $\kappa > 1$. To analyze the extended
+method properly one would need to use a kernel satisfying an extended version of
+Assumption \ref{assumption:1} with $\kappa \in [2, 4)$. It proved difficult to find a
+reasonable kernel for this case. As the sample paths induced by the Matern kernel with
+high $\nu$ are fairly standard, the results should, nevertheless, still tell us
+something of relevance about the underlying method.
 \end{remark}
 
 
@@ -145,22 +145,27 @@ parameter corresponding to the second point-of-impact is significantly smaller t
 one corresponding to the first point-of-impact. Hence, in the case of $S = 2$ we should
 expect that the method finds the first point-of-impact at least as often. We also expect
 that the precision of the method decreases in $\nu$, i.e. the smoother the functional
-regressor the less precise the estimates. What we hope to see is that for the case $d =
-4$, i.e. when using the fourth-order finite difference, the performance of the method
-increases in the smoother $\nu = 2.5$ case.
+regressor the less precise the estimates. For the case of $S = 0$ we should see no
+difference for varying smoothness nor for varying $d$. What we hope to see is that for
+the case $d = 4$, i.e. when using the fourth-order finite difference, the performance of
+the method increases in the smoother $\nu = 2.5$ case.
 
 Figure \ref{figure:monte_carlo_results_order2} summarizes the results when applying the
 standard algorithm ($d = 2$). The top row shows the case of no points-of-impact ($S =
 0$), the center row depicts the case of one point-of-impact ($S = 1$) and the bottom row
 exhibits the case of two points-of-impact ($S = 2$). The results are consistent with our
-expectations. The plot can be understood as follows: In the middle sub-figure we see that
-for the $\nu = 0.5$ case the true location ($49$) makes up more than $50\%$ of the
-estimated locations.
+expectations. The plot can be understood as follows: In the middle sub-figure we see
+that for the $\nu = 0.5$ case the true location ($49$) makes up more than $50\%$ of the
+estimated locations. In all cases for $\nu$ and both cases for $d$ we see no difference
+in the frequency of false-positives (top row).
 
 Even though Assumption \ref{assumption:1} is not satisfied for $\nu \in \{1.5, 2.5\}$,
-the estimated locations form a cluster around the true points. This is in line with the
-argumentation of \cite{Kneip2020}, in that the smooth functional regressors make it
-harder for the method to distinguish between the influence of neighboring points.
+the estimated locations form a cluster around the true points. This should tell us that
+a mild violation of Assumption \ref{assumption:1} does not ruin the analysis completely
+and that an improved criterion function may result in even more precise estimates. The
+large variance is also in line with the argumentation of \cite{Kneip2020}, in that the
+smooth functional regressors make it harder for the method to distinguish between the
+influence of neighboring points.
 
 Figure \ref{figure:monte_carlo_results_order4} depicts the case when employing the
 fourth-order finite difference ($d = 4$). The image is similar to the above figure.
